@@ -36,15 +36,17 @@
     <script src="../node_modules//jquery/dist/jquery.min.js"></script>
     <script>
         $(function () {
-            $.ajax({
-                url: 'http://127.0.0.1:8888/users',
-                success: function (res) {
-                    console.log(res,'res');
-                    const { err_code, message } = res
-                    var html = ''
-                    if (err_code !== 0) return console.log('数据获取失败');
-                    message.forEach(element => {
-                    html += `
+            function loadData() {
+                // 查询所有的数据
+                $.ajax({
+                    url: 'http://127.0.0.1:8888/users',
+                    success: function (res) {
+                        console.log(res, 'res');
+                        const { err_code, message } = res
+                        var html = ''
+                        if (err_code !== 0) return console.log('数据获取失败');
+                        message.forEach(element => {
+                            html += `
                     <tr>
                         <td>${element.id}</td>
                         <td>${element.username}</td>
@@ -52,17 +54,37 @@
                         <td>${element.ctime}</td>
                         <td>
                             <a href="./edit.html?id=${element.id}" type="button" class="btn btn-danger">编辑</a>
-                            <button type="button" class="btn btn-success">删除</button>
+                            <button type="button" class="btn btn-success" data-id="${element.id}" id="deleteBtn">删除</button>
                         </td>
                     </tr>
                     `
-                    });
-                    $('#tbody').html(html)
-                
-                }
+                        });
+                        $('#tbody').html(html)
+
+                    }
+                })
+            }
+
+            loadData()
+            // 删除
+            $('#tbody').on('click', '#deleteBtn', function () {
+                // 直接获取id
+                //   console.log(this.dataset); 原始
+                // $(this).data  ajax
+                var id = this.dataset.id
+
+                $.ajax({
+                    type: 'delete',
+                    url: `http://127.0.0.1:8888/users/${id}`,
+                    success: function (res) {
+                        console.log(res);
+                        if (res.err_code !== 0) return console.log(res.message);
+                        // 删除成功后刷新页面
+                        // location.reload()
+                        loadData()
+                    }
+                })
             })
-
-
 
         })
     </script>
