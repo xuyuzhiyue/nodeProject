@@ -12,10 +12,10 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>w王者荣耀</h1>
+            <h1>王者荣耀</h1>
         </div>
         <div class="addBtn">
-            <button type="button" class="btn btn-success pull-right">添加</button>
+            <a href="./add.html" type="button" class="btn btn-success pull-right">添加</a>
         </div>
 
         <table class="table table-bordered table-hover">
@@ -29,16 +29,6 @@
                 </tr>
             </thead>
             <tbody id="tbody">
-                <tr>
-                    <td>0</td>
-                    <td>哈哈</td>
-                    <td>100</td>
-                    <td>2020-10-1</td>
-                    <td>
-                        <button type="button" class="btn btn-danger">删除</button>
-                        <button type="button" class="btn btn-success">编辑</button>
-                    </td>
-                </tr>
             </tbody>
         </table>
 
@@ -61,8 +51,8 @@
                         <td>${element.age}</td>
                         <td>${element.ctime}</td>
                         <td>
-                            <button type="button" class="btn btn-danger">删除</button>
-                            <button type="button" class="btn btn-success">编辑</button>
+                            <a href="./edit.html?id=${element.id}" type="button" class="btn btn-danger">编辑</a>
+                            <button type="button" class="btn btn-success">删除</button>
                         </td>
                     </tr>
                     `
@@ -71,6 +61,9 @@
                 
                 }
             })
+
+
+
         })
     </script>
 </body>
