@@ -15,6 +15,24 @@ router.get('/', function (req, res, next) {
   res.send('express server')
 });
 
+
+
+// 根据name和password获取管理员信息,用于管理后台数据
+router.get('/manageUsers/:name/:password', (req, res) => {
+  const name = req.params.name
+  const password = req.params.password
+  const sql = 'select * from manageuser where isdel = 0 and name = ? and password = ?'
+  connection.query(sql, [name,password], (err, result) => {
+    // console.log(res);
+    if (err) throw res.send({ err_code: 1, message: '该管理员不存在' });
+    res.send({
+      err_code: 0,
+      message: result
+    })
+  })
+})
+
+
 // 获取所有的用户信息
 /**
  * @api {get} /users 1.1获取所有的用户信息

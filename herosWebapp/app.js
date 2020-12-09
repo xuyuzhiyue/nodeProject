@@ -4,7 +4,8 @@ var path = require('path');
 
 var app = express();
 
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(__dirname+"/public",{index:"login.html"}));
 app.use('/node_modules',express.static(path.join(__dirname, 'node_modules')));
 
 // catch 404 and forward to error handler

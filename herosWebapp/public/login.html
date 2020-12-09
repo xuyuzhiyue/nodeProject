@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../node_modules//bootstrap/dist/css/bootstrap.min.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>登录页面</h1>
+        </div>
+        
+        <form action="" method="get" role="form">
+            <legend>请输入用户名和密码</legend>
+        
+            <div class="form-group">
+                <label for="name">用户名</label>
+                <input type="text" class="form-control" id="name" name ="name" placeholder="Input field">
+            </div>
+            <div class="form-group">
+                <label for="password">密码</label>
+                <input type="text" class="form-control" id="password" name ="password" placeholder="Input field">
+            </div>
+        
+            <button type="button" class="btn btn-primary" id="postBtn">登录</button>
+        </form>
+        
+    </div>
+    <script src="../node_modules//jquery/dist/jquery.min.js"></script>
+    <script>
+        $(function () {
+           $('#postBtn').click(function(){
+            //    获取表单的数据
+               var params ={
+                   name:$('#name').val() ,
+                   password:$('#password').val()*1
+               }
+               console.log(params,'params');
+
+            $.ajax({
+                url: `http://127.0.0.1:8888/manageUsers/${params.name}/${params.password}`,
+                success:function(res){
+                    console.log(res,'res');
+                   if (res.message.length < 1) return alert('请输入正确的账号和密码');
+                   location.href = './index.html'
+                }
+            })
+
+           })
+        })
+    </script>
+</body>
+
+</html>
