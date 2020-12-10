@@ -179,5 +179,44 @@ define({ "api": [
     "version": "0.0.0",
     "filename": "routes/index.js",
     "groupTitle": "User"
+  },
+  {
+    "type": "get",
+    "url": "/manageUsers/:name/:password",
+    "title": "1.0 根据name和password获取管理员信息,用于管理后台数据",
+    "name": "manageUsers",
+    "group": "manageUsers",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>登录的用户账号</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "password",
+            "description": "<p>密码</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n    \"err_code\": 0,\n    \"message\": [\n        {\n            \"id\": 1,\n            \"name\": \"admin\",\n            \"password\": 123456,\n            \"isdel\": 0\n        }\n    ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/index.js",
+    "groupTitle": "manageUsers"
   }
 ] });

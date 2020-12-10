@@ -17,7 +17,29 @@ router.get('/', function (req, res, next) {
 
 
 
+
 // 根据name和password获取管理员信息,用于管理后台数据
+/**
+ * @api {get} /manageUsers/:name/:password 1.0 根据name和password获取管理员信息,用于管理后台数据
+ * @apiName manageUsers
+ * @apiGroup manageUsers
+ *
+ * @apiParam {String} name 登录的用户账号
+ *  @apiParam {Number} password   密码
+ * 
+* @apiSuccessExample {json} Success-Response:
+{
+    "err_code": 0,
+    "message": [
+        {
+            "id": 1,
+            "name": "admin",
+            "password": 123456,
+            "isdel": 0
+        }
+    ]
+}
+ */
 router.get('/manageUsers/:name/:password', (req, res) => {
   const name = req.params.name
   const password = req.params.password
