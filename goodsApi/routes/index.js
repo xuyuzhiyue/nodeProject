@@ -22,6 +22,70 @@ router.get('/', function (req, res) {
 });
 
 
+
+/**
+ * @api {get}  所有商品数据
+ * @apiName Goods
+ * @apiGroup Goods
+ *
+ * @apiParam  {String}  cat_name 
+ * @apiParam {Number} cat_id 
+ * @apiParam {String} cat_pid 
+ * @apiParam {String} cat_level 
+ * @apiParam {0/1} cat_deleted 
+ * @apiParam {String} cat_icon 
+ * @apiParam {0/1} isdel 
+ * @apiParam {String} cat_type 
+ *
+* @apiSuccessExample {json} Success-Response:
+{
+    "err_code": 0,
+    "message": [
+ {
+            "cat_id": 1,
+            "cat_name": "大家电",
+            "cat_pid": 0,
+            "cat_level": 0,
+            "cat_deleted": false,
+            "cat_icon": "/full/none.jpg",
+            "children": [
+                {
+                    "cat_id": 3,
+                    "cat_name": "电视",
+                    "cat_pid": 1,
+                    "cat_level": 1,
+                    "cat_deleted": false,
+                    "cat_icon": "/full/none.jpg",
+                    "children": [
+                        {
+                            "cat_id": 1,
+                            "cat_name": "曲面电视",
+                            "cat_pid": 3,
+                            "cat_level": 2,
+                            "cat_deleted": 0,
+                            "cat_icon": "https://api-hmugo-web.itheima.net/full/2fb113b32f7a2b161f5ee4096c319afedc3fd5a1.jpg",
+                            "isdel": 0,
+                            "cat_type": "电视"
+                        },
+                        {
+                            "cat_id": 8,
+                            "cat_name": "长虹",
+                            "cat_pid": 3,
+                            "cat_level": 2,
+                            "cat_deleted": 0,
+                            "cat_icon": "https://api-hmugo-web.itheima.net/full/14291787e1f9f0215816048e813e4ec4fbb3dffe.jpg",
+                            "isdel": 0,
+                            "cat_type": "电视"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+ */
+
+
 // 所有商品数据
 router.get('/allgoods', function (req, res) {
   allgoods(res)
@@ -46,6 +110,32 @@ router.get('/productList', function (req, res) {
 //     res.send(data.toString())
 //   })
 // })
+
+
+
+/**
+ * @api {get}  轮播图
+ * @apiName rotationChart
+ * @apiGroup rotationChart
+ *
+ * @apiParam  {Number}  goods_id 
+ * @apiParam {String} image_src 
+ * @apiParam {String} opten_type 
+ * @apiParam {String} navigator_url 
+ * @apiParam {0/1} isdel 
+ *
+* @apiSuccessExample {json} Success-Response:
+{
+    "err_code": 0,
+    "message": [{
+		"goods_id": 38,
+		"image_src": "http://127.0.0.1:8800/rotat/banner3",
+		"open_type": "navigate",
+		"navigator_url": "/pages/goods_detail/main?goods_id=38",
+		"isdel": 0
+	}]
+}
+ */
 // 轮播图
 router.get('/rotationChart', function (req, res) {
   const sql = 'select * from rotationChart where isdel = 0'
