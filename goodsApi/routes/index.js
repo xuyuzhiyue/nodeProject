@@ -24,7 +24,7 @@ router.get('/', function (req, res) {
 
 
 /**
- * @api {get}  所有商品数据
+ * @api {get}  /allgoods
  * @apiName Goods
  * @apiGroup Goods
  *
@@ -114,7 +114,7 @@ router.get('/productList', function (req, res) {
 
 
 /**
- * @api {get}  轮播图
+ * @api {get}  /rotationChart
  * @apiName rotationChart
  * @apiGroup rotationChart
  *
@@ -148,13 +148,36 @@ router.get('/rotationChart', function (req, res) {
   })
 })
 
-// 导航
 // router.get('/Navigation',function(req,res){
 //   fs.readFile(path.join(__dirname,'../public/Navigation.json'),(err,data) =>{
 //     if(err) throw err
 //     res.send(data.toString())
 //   })
 // })
+/**
+ * @api {get}   /navigation
+ * @apiName navigation
+ * @apiGroup navigation
+ *
+ * @apiParam  {Number}  id 
+ * @apiParam {String} name 
+ * @apiParam {0/1} isdel 
+ * @apiParam {String} image_src 
+ *  @apiParam {String} navigator_url 
+ *
+* @apiSuccessExample {json} Success-Response:
+{
+    "err_code": 0,
+    "message": [{
+		"id": 1,
+		"name": "分类",
+		"image_src": "https://api-hmugo-web.itheima.net/pyg/icon_index_nav_4@2x.png",
+		"open_type": "switchTab",
+		"navigator_url": "/pages/category/main",
+		"isdel": 0
+	}]
+}
+ */
 router.get('/navigation', function (req, res) {
   const sql = 'select * from navigation where isdel = 0'
   connection.query(sql, (err, result) => {
@@ -179,7 +202,32 @@ let fashion = []
 let floor = []
 let box = []
 
-
+/**
+ * @api {get}  /floor
+ * @apiName floor
+ * @apiGroup floor
+ *
+ * @apiParam  {Number}  id 
+ * @apiParam {String} name 
+ * @apiParam {String} open_type 
+ *  @apiParam {String} navigator_url 
+ *
+* @apiSuccessExample {json} Success-Response:
+{
+    "err_code": 0,
+    "message": [{
+      "floor_title": {
+			"name": "时尚女装",
+			"image_src": "https://api-hmugo-web.itheima.net/pyg/pic_floor01_title.png"
+		},
+		"product_list": [{
+			"name": "优质服饰",
+			"image_src": "https://api-hmugo-web.itheima.net/pyg/pic_floor01_1@2x.png",
+			"open_type": "navigate",
+			"navigator_url": "/pages/goods_list?query=服饰"
+		}}]
+}
+ */
 router.get('/floor', function (req, res) {
   // location.reload()
   // 获取时尚女装数据

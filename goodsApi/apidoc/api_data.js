@@ -1,7 +1,7 @@
 define({ "api": [
   {
     "type": "get",
-    "url": "所有商品数据",
+    "url": "/allgoods",
     "title": "",
     "name": "Goods",
     "group": "Goods",
@@ -82,7 +82,120 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "轮播图",
+    "url": "/floor",
+    "title": "",
+    "name": "floor",
+    "group": "floor",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "open_type",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "navigator_url",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n    \"err_code\": 0,\n    \"message\": [{\n      \"floor_title\": {\n\t\t\t\"name\": \"时尚女装\",\n\t\t\t\"image_src\": \"https://api-hmugo-web.itheima.net/pyg/pic_floor01_title.png\"\n\t\t},\n\t\t\"product_list\": [{\n\t\t\t\"name\": \"优质服饰\",\n\t\t\t\"image_src\": \"https://api-hmugo-web.itheima.net/pyg/pic_floor01_1@2x.png\",\n\t\t\t\"open_type\": \"navigate\",\n\t\t\t\"navigator_url\": \"/pages/goods_list?query=服饰\"\n\t\t}}]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/index.js",
+    "groupTitle": "floor"
+  },
+  {
+    "type": "get",
+    "url": "/navigation",
+    "title": "",
+    "name": "navigation",
+    "group": "navigation",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "0/1",
+            "optional": false,
+            "field": "isdel",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "image_src",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "navigator_url",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n    \"err_code\": 0,\n    \"message\": [{\n\t\t\"id\": 1,\n\t\t\"name\": \"分类\",\n\t\t\"image_src\": \"https://api-hmugo-web.itheima.net/pyg/icon_index_nav_4@2x.png\",\n\t\t\"open_type\": \"switchTab\",\n\t\t\"navigator_url\": \"/pages/category/main\",\n\t\t\"isdel\": 0\n\t}]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/index.js",
+    "groupTitle": "navigation"
+  },
+  {
+    "type": "get",
+    "url": "/rotationChart",
     "title": "",
     "name": "rotationChart",
     "group": "rotationChart",
