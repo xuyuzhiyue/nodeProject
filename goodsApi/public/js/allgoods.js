@@ -72,6 +72,9 @@ let KitchAppWest
 let liftEnvir
 let liftHome
 
+// 居家生活
+let juLiftPaer
+let juLiftClean
 
 function allMysqlData(res) {
 
@@ -112,12 +115,12 @@ function allMysqlData(res) {
     connection.query(sqlWas, (err, result) => {
         if (err) throw res.send({ err_code: 1, message: '数据不存在' });
         bigWashing = {
-            "cat_id": 7,
-            "cat_name": "空调",
-            "cat_pid": 1,
-            "cat_level": 1,
-            "cat_deleted": false,
-            "cat_icon": "/full/none.jpg",
+			"cat_id": 30,
+			"cat_name": "洗衣机",
+			"cat_pid": 1,
+			"cat_level": 1,
+			"cat_deleted": false,
+			"cat_icon": "/full/none.jpg",
             "children": result
         }
     })
@@ -128,12 +131,12 @@ function allMysqlData(res) {
     connection.query(sqlRef, (err, result) => {
         if (err) throw res.send({ err_code: 1, message: '数据不存在' });
         bitRefrigerator = {
-            "cat_id": 7,
-            "cat_name": "空调",
-            "cat_pid": 1,
-            "cat_level": 1,
-            "cat_deleted": false,
-            "cat_icon": "/full/none.jpg",
+			"cat_id": 53,
+			"cat_name": "冰箱",
+			"cat_pid": 1,
+			"cat_level": 1,
+			"cat_deleted": false,
+			"cat_icon": "/full/none.jpg",
             "children": result
         }
     })
@@ -638,6 +641,37 @@ function allMysqlData(res) {
         }
     })
 
+    // 居家生活
+    // 1.获取生活用纸数据
+    const sqlPaer = 'select * from allgoods where isdel = 0 and cat_type = "生活用纸"'
+    connection.query(sqlPaer, (err, result) => {
+        if (err) throw res.send({ err_code: 1, message: '数据不存在' });
+        juLiftPaer = {
+			"cat_id": 409,
+			"cat_name": "生活用纸",
+			"cat_pid": 406,
+			"cat_level": 1,
+			"cat_deleted": false,
+			"cat_icon": "/full/none.jpg",
+            "children": result
+        }
+    })
+
+
+        // 1.获取家庭清洁数据
+        const sqljuLiftClean = 'select * from allgoods where isdel = 0 and cat_type = "家庭清洁"'
+        connection.query(sqljuLiftClean, (err, result) => {
+            if (err) throw res.send({ err_code: 1, message: '数据不存在' });
+            juLiftClean = {
+                "cat_id": 413,
+                "cat_name": "家庭清洁",
+                "cat_pid": 406,
+                "cat_level": 1,
+                "cat_deleted": false,
+                "cat_icon": "/full/none.jpg",
+                "children": result
+            }
+        })
 
     //   总的拼接
     allData = {
@@ -721,6 +755,14 @@ function allMysqlData(res) {
             "cat_deleted": false,
             "cat_icon": "/full/none.jpg",
             "children": [liftEnvir,liftHome]
+        },{
+            "cat_id": 406,
+            "cat_name": "居家生活",
+            "cat_pid": 0,
+            "cat_level": 0,
+            "cat_deleted": false,
+            "cat_icon": "/full/none.jpg",
+            "children": [juLiftClean,juLiftPaer]
         }]
     }
     res.send(allData)
