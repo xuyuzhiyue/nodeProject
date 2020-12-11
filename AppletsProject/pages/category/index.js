@@ -49,9 +49,9 @@ Page({
       if ((Date.now() - Cates.time) > 1000 * 5) {
         // 重新发送请求
         this.getCates()
-        console.log(Date.now() - Cates.time);
+        // console.log(Date.now() - Cates.time);
       } else {
-        console.log(Date.now() - Cates.time);
+        // console.log(Date.now() - Cates.time);
         // 可以使用旧数据
         this.Cates = Cates.data;
         // 构造左侧的大菜数据
