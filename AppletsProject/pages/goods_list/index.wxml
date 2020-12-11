@@ -1,2 +1,49 @@
-<!--pages/goods_list/index.wxml-->
-<text>pages/goods_list/index.wxml</text>
+<view>
+    <SearchInput></SearchInput>
+     <!-- 监听自定义事件 子组件传来的 -->
+    <Tabs tabs="{{tabs}}" bindtabsItemChange="handleTabsItemChange">
+      <block wx:if="{{tabs[0].isActive}}">
+        <view class="first_tab">
+          <navigator class="goods_item">
+            <!-- 左侧 图片的容器 -->
+            <view class="goods_img_wrap">
+              <image src="https://api-hmugo-web.itheima.net/full/2fb113b32f7a2b161f5ee4096c319afedc3fd5a1.jpg" mode="widthFix" />
+            </view>
+            <!-- 右侧商品的容器 -->
+            <view class="goods_info_wrap">
+              <!-- 名称 -->
+              <view class="goods_name">创维（Skyworth）65V9E 65英寸25核4K HDR高清智能电视</view>
+              <view class="goods_price">￥3999</view>
+            </view>
+          </navigator>
+                    <navigator class="goods_item">
+            <!-- 左侧 图片的容器 -->
+            <view class="goods_img_wrap">
+              <image src="https://api-hmugo-web.itheima.net/full/2fb113b32f7a2b161f5ee4096c319afedc3fd5a1.jpg" mode="widthFix" />
+            </view>
+            <!-- 右侧商品的容器 -->
+            <view class="goods_info_wrap">
+              <!-- 名称 -->
+              <view class="goods_name">创维（Skyworth）65V9E 65英寸25核4K HDR高清智能电视</view>
+              <view class="goods_price">￥3999</view>
+            </view>
+          </navigator>
+                    <navigator class="goods_item">
+            <!-- 左侧 图片的容器 -->
+            <view class="goods_img_wrap">
+              <image src="https://api-hmugo-web.itheima.net/full/2fb113b32f7a2b161f5ee4096c319afedc3fd5a1.jpg" mode="widthFix" />
+            </view>
+            <!-- 右侧商品的容器 -->
+            <view class="goods_info_wrap">
+              <!-- 名称 -->
+              <view class="goods_name">创维（Skyworth）65V9E 65英寸25核4K HDR高清智能电视</view>
+              <view class="goods_price">￥3999</view>
+            </view>
+          </navigator>
+        </view>
+      </block>
+      <block wx:elif="{{tabs[1].isActive}}">1</block>
+      <block wx:elif="{{tabs[2].isActive}}">2</block>
+    </Tabs>
+</view>
+  

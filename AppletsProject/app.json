@@ -13,7 +13,8 @@
     "pages/login/index",
     "pages/auth/index",
     "pages/pay/index",
-    "pages/components/SearchInput/SearchInput"
+    "pages/components/SearchInput/SearchInput",
+    "pages/components/Tabs/Tabs"
   ],
   "window": {
     "backgroundTextStyle": "light",

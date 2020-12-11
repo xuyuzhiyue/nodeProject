@@ -6,7 +6,10 @@ let mysql = require('mysql')
 var request = require('request')
 
 const allgoods = require('../public/js/allgoods')
-const {  banner3,banner1,banner2 } = require('../public/js/picter')
+const { banner3, banner1, banner2, icon_index_nav1, icon_index_nav2, icon_index_nav3, icon_index_nav4,
+  pic_floor1, pic_floor2, pic_floor3, pic_floor4, pic_floor5, pic_floor6, pic_floor7, pic_floor8, pic_floor9,
+  pic_floor10, pic_floor11, pic_floor12, pic_floor13, pic_floor14, pic_floor15
+} = require('../public/js/picter')
 
 let connection = mysql.createConnection({
   host: 'localhost',
@@ -128,12 +131,12 @@ router.get('/productList', function (req, res) {
 {
     "err_code": 0,
     "message": [{
-		"goods_id": 38,
-		"image_src": "http://127.0.0.1:8800/rotat/banner3",
-		"open_type": "navigate",
-		"navigator_url": "/pages/goods_detail/main?goods_id=38",
-		"isdel": 0
-	}]
+    "goods_id": 38,
+    "image_src": "http://127.0.0.1:8800/rotat/banner3",
+    "open_type": "navigate",
+    "navigator_url": "/pages/goods_detail/main?goods_id=38",
+    "isdel": 0
+  }]
 }
  */
 // 轮播图
@@ -169,13 +172,13 @@ router.get('/rotationChart', function (req, res) {
 {
     "err_code": 0,
     "message": [{
-		"id": 1,
-		"name": "分类",
-		"image_src": "https://api-hmugo-web.itheima.net/pyg/icon_index_nav_4@2x.png",
-		"open_type": "switchTab",
-		"navigator_url": "/pages/category/main",
-		"isdel": 0
-	}]
+    "id": 1,
+    "name": "分类",
+    "image_src": "https://api-hmugo-web.itheima.net/pyg/icon_index_nav_4@2x.png",
+    "open_type": "switchTab",
+    "navigator_url": "/pages/category/main",
+    "isdel": 0
+  }]
 }
  */
 router.get('/navigation', function (req, res) {
@@ -217,15 +220,15 @@ let box = []
     "err_code": 0,
     "message": [{
       "floor_title": {
-			"name": "时尚女装",
-			"image_src": "https://api-hmugo-web.itheima.net/pyg/pic_floor01_title.png"
-		},
-		"product_list": [{
-			"name": "优质服饰",
-			"image_src": "https://api-hmugo-web.itheima.net/pyg/pic_floor01_1@2x.png",
-			"open_type": "navigate",
-			"navigator_url": "/pages/goods_list?query=服饰"
-		}}]
+      "name": "时尚女装",
+      "image_src": "https://api-hmugo-web.itheima.net/pyg/pic_floor01_title.png"
+    },
+    "product_list": [{
+      "name": "优质服饰",
+      "image_src": "https://api-hmugo-web.itheima.net/pyg/pic_floor01_1@2x.png",
+      "open_type": "navigate",
+      "navigator_url": "/pages/goods_list?query=服饰"
+    }}]
 }
  */
 router.get('/floor', function (req, res) {
@@ -309,6 +312,19 @@ router.get('/floor', function (req, res) {
 })
 
 
+// 读取navigation 导航
+router.get('/navigation/icon_index_nav1', function (req, res) {
+  icon_index_nav1(res)
+})
+router.get('/navigation/icon_index_nav2', function (req, res) {
+  icon_index_nav2(res)
+})
+router.get('/navigation/icon_index_nav3', function (req, res) {
+  icon_index_nav3(res)
+})
+router.get('/navigation/icon_index_nav4', function (req, res) {
+  icon_index_nav4(res)
+})
 // 读取轮播图
 router.get('/rotat/banner1', function (req, res) {
   banner1(res)
@@ -319,4 +335,51 @@ router.get('/rotat/banner2', function (req, res) {
 router.get('/rotat/banner3', function (req, res) {
   banner3(res)
 })
+// 读取floor 楼层
+router.get('/floor/pic_floor1', function (req, res) {
+  pic_floor1(res)
+})
+router.get('/floor/pic_floor2', function (req, res) {
+  pic_floor2(res)
+})
+router.get('/floor/pic_floor3', function (req, res) {
+  pic_floor3(res)
+})
+router.get('/floor/pic_floor4', function (req, res) {
+  pic_floor4(res)
+})
+router.get('/floor/pic_floor5', function (req, res) {
+  pic_floor5(res)
+})
+router.get('/floor/pic_floor6', function (req, res) {
+  pic_floor6(res)
+})
+router.get('/floor/pic_floor7', function (req, res) {
+  pic_floor7(res)
+})
+router.get('/floor/pic_floor8', function (req, res) {
+  pic_floor8(res)
+})
+router.get('/floor/pic_floor9', function (req, res) {
+  pic_floor9(res)
+})
+router.get('/floor/pic_floor10', function (req, res) {
+  pic_floor10(res)
+})
+router.get('/floor/pic_floor11', function (req, res) {
+  pic_floor11(res)
+})
+router.get('/floor/pic_floor12', function (req, res) {
+  pic_floor12(res)
+})
+router.get('/floor/pic_floor13', function (req, res) {
+  pic_floor13(res)
+})
+router.get('/floor/pic_floor14', function (req, res) {
+  pic_floor14(res)
+})
+router.get('/floor/pic_floor15', function (req, res) {
+  pic_floor15(res)
+})
+
 module.exports = router;
