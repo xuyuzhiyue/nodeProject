@@ -45,6 +45,34 @@ let iphonWebServer
 let iphonPhotography
 let iphonCameraAcc
 
+// 电脑办公
+let officMachine
+let officePeripheral
+let officeDIY
+let officeNetwork
+
+// 厨卫电器
+let kitBathroom
+let kitBigEle
+let kitWaterPur
+
+
+// 食品酒水
+let footWatFam
+let footWatMilkBlen
+let footWatFreshFruits
+let footWatSnacks
+
+
+// 厨房电器
+let KitchAppChina
+let KitchAppWest
+
+// 生活电器
+let liftEnvir
+let liftHome
+
+
 function allMysqlData(res) {
 
     // 大家电
@@ -336,36 +364,279 @@ function allMysqlData(res) {
     })
 
 
-        // 获取摄影摄像数据
-        const sqlPhotography = 'select * from allgoods where isdel = 0 and cat_type = "摄影摄像"'
-        connection.query(sqlPhotography, (err, result) => {
-            if (err) throw res.send({ err_code: 1, message: '数据不存在' });
-            iphonPhotography = {
-                "cat_id": 228,
-                "cat_name": "摄影摄像",
-                "cat_pid": 172,
-                "cat_level": 1,
-                "cat_deleted": false,
-                "cat_icon": "/full/none.jpg",
-                "children": result
-            }
-        })
+    // 获取摄影摄像数据
+    const sqlPhotography = 'select * from allgoods where isdel = 0 and cat_type = "摄影摄像"'
+    connection.query(sqlPhotography, (err, result) => {
+        if (err) throw res.send({ err_code: 1, message: '数据不存在' });
+        iphonPhotography = {
+            "cat_id": 228,
+            "cat_name": "摄影摄像",
+            "cat_pid": 172,
+            "cat_level": 1,
+            "cat_deleted": false,
+            "cat_icon": "/full/none.jpg",
+            "children": result
+        }
+    })
 
-                // 获取相机配件数据
-                const sqlCameraAcc = 'select * from allgoods where isdel = 0 and cat_type = "相机配件"'
-                connection.query(sqlCameraAcc, (err, result) => {
-                    if (err) throw res.send({ err_code: 1, message: '数据不存在' });
-                    iphonCameraAcc = {
-                        "cat_id": 245,
-                        "cat_name": "相机配件",
-                        "cat_pid": 172,
-                        "cat_level": 1,
-                        "cat_deleted": false,
-                        "cat_icon": "/full/none.jpg",
-                        "children": result
-                    }
-                })
+    // 获取相机配件数据
+    const sqlCameraAcc = 'select * from allgoods where isdel = 0 and cat_type = "相机配件"'
+    connection.query(sqlCameraAcc, (err, result) => {
+        if (err) throw res.send({ err_code: 1, message: '数据不存在' });
+        iphonCameraAcc = {
+            "cat_id": 245,
+            "cat_name": "相机配件",
+            "cat_pid": 172,
+            "cat_level": 1,
+            "cat_deleted": false,
+            "cat_icon": "/full/none.jpg",
+            "children": result
+        }
+    })
 
+
+    // 电脑办公
+    // 1.获取电脑整机数据
+    const sqlMachin = 'select * from allgoods where isdel = 0 and cat_type = "电脑整机"'
+    connection.query(sqlMachin, (err, result) => {
+        if (err) throw res.send({ err_code: 1, message: '数据不存在' });
+        officMachine = {
+            "cat_id": 281,
+            "cat_name": "电脑整机",
+            "cat_pid": 266,
+            "cat_level": 1,
+            "cat_deleted": false,
+            "cat_icon": "/full/none.jpg",
+            "children": result
+        }
+    })
+
+
+    // 1.获取电脑外设数据
+    const sqlPeri = 'select * from allgoods where isdel = 0 and cat_type = "电脑外设"'
+    connection.query(sqlPeri, (err, result) => {
+        if (err) throw res.send({ err_code: 1, message: '数据不存在' });
+        officePeripheral = {
+            "cat_id": 281,
+            "cat_name": "电脑整机",
+            "cat_pid": 266,
+            "cat_level": 1,
+            "cat_deleted": false,
+            "cat_icon": "/full/none.jpg",
+            "children": result
+        }
+    })
+
+
+    // 1.获取DIY硬件数据
+    const sqlDIY = 'select * from allgoods where isdel = 0 and cat_type = "DIY硬件"'
+    connection.query(sqlDIY, (err, result) => {
+        if (err) throw res.send({ err_code: 1, message: '数据不存在' });
+        officeDIY = {
+            "cat_id": 281,
+            "cat_name": "电脑整机",
+            "cat_pid": 266,
+            "cat_level": 1,
+            "cat_deleted": false,
+            "cat_icon": "/full/none.jpg",
+            "children": result
+        }
+    })
+
+
+    // 1.获取网络设备数据
+    const sqlNet = 'select * from allgoods where isdel = 0 and cat_type = "网络设备"'
+    connection.query(sqlNet, (err, result) => {
+        if (err) throw res.send({ err_code: 1, message: '数据不存在' });
+        officeNetwork = {
+            "cat_id": 281,
+            "cat_name": "电脑整机",
+            "cat_pid": 266,
+            "cat_level": 1,
+            "cat_deleted": false,
+            "cat_icon": "/full/none.jpg",
+            "children": result
+        }
+    })
+
+
+    // 厨卫电器
+    // 1.获取卫浴电器数据
+    const sqlBath = 'select * from allgoods where isdel = 0 and cat_type = "卫浴电器"'
+    connection.query(sqlBath, (err, result) => {
+        if (err) throw res.send({ err_code: 1, message: '数据不存在' });
+        kitBathroom = {
+            "cat_id": 324,
+            "cat_name": "卫浴电器",
+            "cat_pid": 321,
+            "cat_level": 1,
+            "cat_deleted": false,
+            "cat_icon": "/full/none.jpg",
+            "children": result
+        }
+    })
+
+    // 1.获取厨房大电数据
+    const sqlBigEle = 'select * from allgoods where isdel = 0 and cat_type = "厨房大电"'
+    connection.query(sqlBigEle, (err, result) => {
+        if (err) throw res.send({ err_code: 1, message: '数据不存在' });
+        kitBigEle = {
+            "cat_id": 336,
+            "cat_name": "厨房大电",
+            "cat_pid": 321,
+            "cat_level": 1,
+            "cat_deleted": false,
+            "cat_icon": "/full/none.jpg",
+            "children": result
+        }
+    })
+
+
+    // 1.获取净水设备数据
+    const sqlWaterPu = 'select * from allgoods where isdel = 0 and cat_type = "净水设备"'
+    connection.query(sqlWaterPu, (err, result) => {
+        if (err) throw res.send({ err_code: 1, message: '数据不存在' });
+        kitWaterPur = {
+            "cat_id": 338,
+            "cat_name": "净水设备",
+            "cat_pid": 321,
+            "cat_level": 1,
+            "cat_deleted": false,
+            "cat_icon": "/full/none.jpg",
+            "children": result
+        }
+    })
+
+
+    // 食品酒水
+    // 1.获取中外名酒数据
+    const sqlWatFam = 'select * from allgoods where isdel = 0 and cat_type = "中外名酒"'
+    connection.query(sqlWatFam, (err, result) => {
+        if (err) throw res.send({ err_code: 1, message: '数据不存在' });
+        footWatFam = {
+            "cat_id": 358,
+            "cat_name": "中外名酒",
+            "cat_pid": 356,
+            "cat_level": 1,
+            "cat_deleted": false,
+            "cat_icon": "/full/none.jpg",
+            "children": result
+        }
+    })
+
+
+    // 1.获取牛奶冲调数据
+    const sqlMilkBlen = 'select * from allgoods where isdel = 0 and cat_type = "牛奶冲调"'
+    connection.query(sqlMilkBlen, (err, result) => {
+        if (err) throw res.send({ err_code: 1, message: '数据不存在' });
+        footWatMilkBlen = {
+            "cat_id": 360,
+            "cat_name": "牛奶冲调",
+            "cat_pid": 356,
+            "cat_level": 1,
+            "cat_deleted": false,
+            "cat_icon": "/full/none.jpg",
+            "children": result
+        }
+    })
+
+
+
+    // 1.获取生鲜蔬果数据
+    const sqlFreshFruits = 'select * from allgoods where isdel = 0 and cat_type = "生鲜蔬果"'
+    connection.query(sqlFreshFruits, (err, result) => {
+        if (err) throw res.send({ err_code: 1, message: '数据不存在' });
+        footWatFreshFruits = {
+            "cat_id": 370,
+            "cat_name": "生鲜蔬果",
+            "cat_pid": 356,
+            "cat_level": 1,
+            "cat_deleted": false,
+            "cat_icon": "/full/none.jpg",
+            "children": result
+        }
+    })
+
+
+    // 1.获取休闲食品数据
+    const sqlSnacks = 'select * from allgoods where isdel = 0 and cat_type = "休闲食品"'
+    connection.query(sqlSnacks, (err, result) => {
+        if (err) throw res.send({ err_code: 1, message: '数据不存在' });
+        footWatSnacks = {
+            "cat_id": 371,
+            "cat_name": "休闲食品",
+            "cat_pid": 356,
+            "cat_level": 1,
+            "cat_deleted": false,
+            "cat_icon": "/full/none.jpg",
+            "children": result
+        }
+    })
+
+
+    // 厨房电器
+    // 1.获取中式厨房数据
+    const sqlChina = 'select * from allgoods where isdel = 0 and cat_type = "中式厨房"'
+    connection.query(sqlChina, (err, result) => {
+        if (err) throw res.send({ err_code: 1, message: '数据不存在' });
+        KitchAppChina = {
+            "cat_id": 457,
+            "cat_name": "中式厨房",
+            "cat_pid": 455,
+            "cat_level": 1,
+            "cat_deleted": false,
+            "cat_icon": "/full/none.jpg",
+            "children": result
+        }
+    })
+
+    // 1.获取西式厨房数据
+    const sqlWest = 'select * from allgoods where isdel = 0 and cat_type = "西式厨房"'
+    connection.query(sqlWest, (err, result) => {
+        if (err) throw res.send({ err_code: 1, message: '数据不存在' });
+        KitchAppWest = {
+			"cat_id": 475,
+			"cat_name": "西式厨房",
+			"cat_pid": 455,
+			"cat_level": 1,
+			"cat_deleted": false,
+			"cat_icon": "/full/none.jpg",
+            "children": result
+        }
+    })
+
+
+    // 生活电器
+    // 1.获取环境电器数据
+    const sqlEnvir = 'select * from allgoods where isdel = 0 and cat_type = "环境电器"'
+    connection.query(sqlEnvir, (err, result) => {
+        if (err) throw res.send({ err_code: 1, message: '数据不存在' });
+        liftEnvir = {
+			"cat_id": 499,
+			"cat_name": "环境电器",
+			"cat_pid": 492,
+			"cat_level": 1,
+			"cat_deleted": false,
+			"cat_icon": "/full/none.jpg",
+            "children": result
+        }
+    })
+
+
+    // 1.获取家居电器数据
+    const sqlliftHome = 'select * from allgoods where isdel = 0 and cat_type = "家居电器"'
+    connection.query(sqlliftHome, (err, result) => {
+        if (err) throw res.send({ err_code: 1, message: '数据不存在' });
+        liftHome = {
+			"cat_id": 501,
+			"cat_name": "家居电器",
+			"cat_pid": 492,
+			"cat_level": 1,
+			"cat_deleted": false,
+			"cat_icon": "/full/none.jpg",
+            "children": result
+        }
+    })
 
 
     //   总的拼接
@@ -409,7 +680,47 @@ function allMysqlData(res) {
             "cat_level": 0,
             "cat_deleted": false,
             "cat_icon": "/full/none.jpg",
-            "children": [iphonMajorSuit, iphonOpportunity, iphonParts, iphonWebServer,iphonPhotography,iphonCameraAcc]
+            "children": [iphonMajorSuit, iphonOpportunity, iphonParts, iphonWebServer, iphonPhotography, iphonCameraAcc]
+        }, {
+            "cat_id": 266,
+            "cat_name": "电脑办公",
+            "cat_pid": 0,
+            "cat_level": 0,
+            "cat_deleted": false,
+            "cat_icon": "/full/none.jpg",
+            "children": [officMachine, officePeripheral, officeDIY, officeNetwork]
+        }, {
+            "cat_id": 321,
+            "cat_name": "厨卫电器",
+            "cat_pid": 0,
+            "cat_level": 0,
+            "cat_deleted": false,
+            "cat_icon": "/full/none.jpg",
+            "children": [kitBathroom, kitBigEle, kitWaterPur]
+        }, {
+            "cat_id": 356,
+            "cat_name": "食品酒水",
+            "cat_pid": 0,
+            "cat_level": 0,
+            "cat_deleted": false,
+            "cat_icon": "/full/none.jpg",
+            "children": [footWatFam, footWatMilkBlen, footWatFreshFruits, footWatSnacks]
+        }, {
+            "cat_id": 455,
+            "cat_name": "厨房电器",
+            "cat_pid": 0,
+            "cat_level": 0,
+            "cat_deleted": false,
+            "cat_icon": "/full/none.jpg",
+            "children": [KitchAppChina, KitchAppWest]
+        },{
+            "cat_id": 492,
+            "cat_name": "生活电器",
+            "cat_pid": 0,
+            "cat_level": 0,
+            "cat_deleted": false,
+            "cat_icon": "/full/none.jpg",
+            "children": [liftEnvir,liftHome]
         }]
     }
     res.send(allData)
