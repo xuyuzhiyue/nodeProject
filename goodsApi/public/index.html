@@ -14,9 +14,16 @@
     <script>
         $(function(){
             $.ajax({
-                url:'http://127.0.0.1:8800/productList',
+                url:'http://127.0.0.1:8800/goodsDetail2',
+                method:"POST",
+                data:{
+                    goodsType:"曲面电视",
+              cat_type:"电视",
+              pagenum:1,
+              pagesize:1
+                },
                 success:err=>{
-                   console.log(JSON.parse(err));
+                   console.log(err);
                 }
             })
         })
