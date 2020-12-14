@@ -12,7 +12,6 @@ let connection = mysql.createConnection({
     database: 'mydb'
   })
 
-  
 //   获取所有的商品信息
 router.get('/goodsDetail',(req,res)=>{
   const sql = 'select * from goodsdetail where isdel = 0 '
@@ -32,7 +31,7 @@ router.post('/goodsDetail2',(req,res)=>{
     const pagesize =  req.body.pagesize*1
     
     const pagenum =  (req.body.pagenum*1 - 1) * pagesize
-    console.log(pagenum);
+    // console.log(pagenum);
     const sql2 = 'select * from goodsdetail where isdel = 0 and goodsType = ? and cat_type = ? limit ?,?'
     // 获取总条数
     const sql = 'select count(*) as total from goodsdetail where isdel = 0 and goodsType = ? and cat_type = ?'
@@ -53,7 +52,6 @@ router.post('/goodsDetail2',(req,res)=>{
           })
         })
       }
-
     })
 })
 module.exports = router;

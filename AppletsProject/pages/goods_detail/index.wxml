@@ -1,2 +1,29 @@
-<!--pages/goods_detail/index.wxml-->
-<text>pages/goods_detail/index.wxml</text>
+<view class="detail_swiper">
+     <swiper autoplay indicator-dots circular indicator-active-color="#FFCA2A"> 
+        <swiper-item >
+            <image class="" src="{{pics_mid1}}" mode="widthFix" />
+        </swiper-item>
+        <swiper-item >
+            <image class="" src="{{pics_mid2}}" mode="widthFix" />
+        </swiper-item>
+        <swiper-item >
+            <image class="" src="{{pics_mid3}}" mode="widthFix" />
+        </swiper-item>
+    </swiper>
+</view>
+<view class="goods_price">{{goods_price}}</view>
+<view class="goods_name_row">
+  <view class="goods_name">{{goods_name}}</view>
+  <view class="goods_list">
+    <text class="iconfont icon-xingji"></text>
+    <view class="collect_text">收藏</view>
+  </view>
+</view>
+
+<view class="goods_info">
+  <view class="goods_info_title">图文详情</view>
+  <view class="goods_info_content">
+    <rich-text class="" nodes="{{goods_introduce}}"></rich-text>
+  </view>
+</view>
+  
