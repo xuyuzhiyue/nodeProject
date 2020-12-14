@@ -29,19 +29,21 @@ router.get('/goodsDetail',(req,res)=>{
 router.post('/goodsDetail2',(req,res)=>{
     const goodsType = req.body.goodsType
     const cat_type = req.body.cat_type
-    const pagenum =  req.body.pagenum*1 - 1
     const pagesize =  req.body.pagesize*1
+    
+    const pagenum =  (req.body.pagenum*1 - 1) * pagesize
+    console.log(pagenum);
     const sql2 = 'select * from goodsdetail where isdel = 0 and goodsType = ? and cat_type = ? limit ?,?'
     // 获取总条数
-    const sql = 'select count(*) as total from goodsdetail where isdel = 0 and goodsType = ? and cat_type = ? limit ?,?'
+    const sql = 'select count(*) as total from goodsdetail where isdel = 0 and goodsType = ? and cat_type = ?'
     // const sql = `select * from goodsdetail where isdel = 0 and goodsType = "${goodsType}" and cat_type = "${cat_type}" limit ${pagenum},${pagesize}`
     connection.query(sql,[goodsType,cat_type,pagenum,pagesize],(err, result) => {
       if (err) {
         throw err
       }else{
-        console.log(result);
+        // console.log(result);
         connection.query(sql2,[goodsType,cat_type,pagenum,pagesize],(err2, result2)=>{
-          if(err2) throw err2
+          if(err2)throw err
           res.send({
             err_code: 0,
             message: {

@@ -4,7 +4,9 @@
   <Tabs tabs="{{tabs}}" bindtabsItemChange="handleTabsItemChange">
     <block wx:if="{{tabs[0].isActive}}">
       <view class="first_tab">
-        <navigator class="goods_item" wx:for="{{goodsList}}" wx:key="goods_id">
+        <navigator class="goods_item" wx:for="{{goodsList}}" wx:key="goods_id" 
+        url="/pages/goods_detail/index?goods_id={{item.goods_id}}"
+        >
           <!-- 左侧 图片的容器 -->
           <view class="goods_img_wrap">
             <image src="{{item.goods_small_logo}}" mode="widthFix" />

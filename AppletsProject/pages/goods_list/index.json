@@ -3,5 +3,7 @@
     "SearchInput":"../../pages/components/SearchInput/SearchInput",
     "Tabs":"../../pages/components/Tabs/Tabs"
   },
-  "navigationBarTitleText": "购物袋列表"
+  "navigationBarTitleText": "购物袋列表",
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark"
 }
