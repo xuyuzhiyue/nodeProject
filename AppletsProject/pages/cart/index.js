@@ -23,7 +23,7 @@
 // 总数量 += 商品的数量
 // 把计算后的价格和数量 设置返回data中即可
 
-import { getSetting,chooseAddress,openSetting} from "../utils/asyncWx"
+import { getSetting,chooseAddress,openSetting,showModal,showToast} from "../utils/asyncWx"
 import regeneratorRuntime from "../../pages/lib/runtime/runtime.js"
 Page({
 
@@ -42,32 +42,8 @@ Page({
     const address = wx.getStorageSync('address')
     // 获取缓存中的购物数据
     const cart = wx.getStorageSync('cart') || []
-        // 1.计算全选
-    // every 数组方法 会遍历 会接受一个回调函数 那么  每一个回调函数都会返回 true  那么 every 方法 返回值为true
-    // 只要 有一个回调函数返回false 那么不在循环执行 直接返回false
-    // 空数组 调用 every ,返回值就是 true 
-    // const allChecked = cart.length?cart.every(v=>v.checked):false
-    let allChecked = true
-    // 1.总价格 总数量
-    let totalPrice = 0;
-    let totalNum = 0;
-    cart.forEach(el =>{
-      if(el.checked){
-        totalPrice += el.num*el.goods_price
-        totalNum += el.num
-      }else{
-        allChecked=false
-      }
-    })
-    // 判断数组是否为空
-    allChecked=cart.length!=0?allChecked:false
-    this.setData({
-      address,
-      cart,
-      allChecked,
-      totalPrice,
-      totalNum
-    })
+    this.setData({address})
+    this.setCart(cart)
   },
   // 点击收货地址
     async handleChooseAddress(){
@@ -116,5 +92,117 @@ Page({
     }catch(err){
       console.log(err);
     }
+  },
+
+  // 商品的选中
+  handleItemChange(e){
+    // 获取被修改的id
+    const goods_id = e.currentTarget.dataset.id
+    // console.log(goods_id);
+    // 2.获取购物车数组
+    let {cart} = this.data
+    // 3.找到被修改的商品对象
+    let index = cart.findIndex(v=>v.goods_id === goods_id)
+    cart[index].checked = !cart[index].checked
+    this.setCart(cart)
+     
+  },
+
+  // 设置购物车状态
+  setCart(cart){
+    // this.setData({
+    //   cart
+    // });
+    let allChecked = true
+    // 1.总价格 总数量
+    let totalPrice = 0;
+    let totalNum = 0;
+    cart.forEach(el =>{
+      if(el.checked){
+        totalPrice += el.num*el.goods_price
+        totalNum += el.num
+      }else{
+        allChecked=false
+      }
+    })
+    // 判断数组是否为空
+    allChecked = cart.length !=0 ? allChecked : false;
+    this.setData({
+      cart,
+      totalPrice,
+      totalNum,
+      allChecked
+    });
+    wx.setStorageSync('cart', cart)
+  },
+  
+
+  // 全选按钮
+  handleItemAllChange(){
+    // 1.获取data中的数据
+    let {cart,allChecked} = this.data
+    // 2.修改值
+    allChecked=!allChecked
+    // 3.循环修改cart数组 中的商品选中状态
+    cart.forEach(v=>v.checked=allChecked)
+    //4.把修改后的值填充回data中或缓存中
+    this.setCart(cart)
+  },
+
+   
+  // 商品数量的编辑功能
+  async handleItemNumEdit(e){
+
+    // 1.获取传递过来的参数
+    const {operation,id} = e.currentTarget.dataset
+    // console.log(operation,id);
+    // 获取购物车数组
+    let {cart} = this.data
+    // 找到需要修改的商品的索引
+    const index = cart.findIndex(v =>v.goods_id===id)
+    // 判断是否要执行删除
+    if(cart[index].num===1&&operation===-1){
+      // 弹出提示框
+      // wx.showModal({
+      //   title:'提示',
+      //   content:'您是否删除此商品',
+      //   success:res=>{
+      //     if(res.confirm){
+      //       cart.splice(index,1)
+      //       this.setCart(cart)
+      //     }else{
+      //       console.log('用户点击取消');
+      //     }
+      //   }
+      // })
+      const res = await showModal({content:"您是否删除此商品"})
+      if(res.confirm){
+        cart.splice(index,1)
+        this.setCart(cart)
+      }
+    }else{
+      // 进行修改数量
+      cart[index].num += operation;
+      // 设置回缓存中和data中
+      this.setCart(cart);
+    }
+  },
+
+  // 结算
+  async handlePay(){
+    // 1.判断收获地址
+    const {address,totalNum} = this.data
+    if(!address.userName){
+      await showToast({title:"请填写收获信息"})
+      return
+    }
+    if(totalNum === 0){
+      await showToast({title:"请选择商品"})
+      return
+    }
+    // 3.跳到支付页面
+    wx.navigateTo({
+      url: '/pages/pay/index',
+    })
   }
 })
