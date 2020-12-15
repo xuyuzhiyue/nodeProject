@@ -14,8 +14,8 @@
 <view class="goods_price">{{goods_price}}</view>
 <view class="goods_name_row">
   <view class="goods_name">{{goods_name}}</view>
-  <view class="goods_list">
-    <text class="iconfont icon-xingji"></text>
+  <view class="goods_list" bindtap="handleCollect">
+    <text class="iconfont {{isCollect?'icon-weibiaoti19':'icon-xingji'}}"></text>
     <view class="collect_text">收藏</view>
   </view>
 </view>
@@ -30,7 +30,7 @@
 <view class="btn_tool">
   <view class="tool_item">
     <view class="iconfont icon-kefu"></view>
-    <view>客户</view>
+    <view>客服</view>
     <button open-type="contact"></button>
   </view>
   <view class="tool_item">

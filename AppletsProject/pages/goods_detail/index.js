@@ -24,7 +24,8 @@ Page({
     pics_mid2:'',
     pics_mid1:'',
     goods_price:'',
-    goods_introduce:''
+    goods_introduce:'',
+    isCollect:false
   },
   goods_name:'',
   pics_mid3:'',
@@ -57,6 +58,11 @@ Page({
     this.GoodsInfo.pics_mid1=options.pics_mid1,
     this.GoodsInfo.goods_price=options.goods_price,
     this.GoodsInfo.goods_small_logo = options.goods_small_logo
+    
+    // 获取缓存中商品收藏的数组
+    let collect = wx.getStorageSync('collect') || []
+    // 判断当前商品是否被收藏
+    let isCollect = collect.some(v => v.goods_id === this.GoodsInfo.goods_id)
     this.setData({
       goods_name:options.goods_name,
       pics_mid3:options.pics_mid3,
@@ -66,7 +72,8 @@ Page({
       // iphone部分手机 不识别webp图片格式
       // 最好找到后台 让他进行修改
       // 临时自己改 确保后台在 webp => 1.jpg
-      goods_introduce:decodeURIComponent(options.goods_introduce).replace(/\.webp/g,'.jpg')
+      goods_introduce:decodeURIComponent(options.goods_introduce).replace(/\.webp/g,'.jpg'),
+      isCollect
     })
 
     // wx.request({
@@ -123,6 +130,41 @@ Page({
       icon:'success',
       // true 防止用户 手抖 疯狂点击按钮
       mask:true
+    })
+  },
+
+  // 点击商品收藏图标
+  handleCollect(){
+    let isCollect = false
+    // 1.获取缓存中的商品收藏
+    let collect = wx.getStorageSync('collect') || []
+    // 2.判断改商品是否被收藏过
+    let index = collect.findIndex(v=>v.goods_id === this.GoodsInfo.goods_id)
+    // 3.当index != -1 表示 已经收藏过
+    if(index !== -1){
+      // 能找到 已经收藏过了 在数组中删除该商品
+      collect.splice(index,1)
+      isCollect=false
+      wx.showToast({
+        title: '取消成功',
+        icon:'success',
+        mask: true,
+      })
+    }else{
+      // 没有被收藏
+      collect.push(this.GoodsInfo)
+      isCollect=true
+      wx.showToast({
+        title: '收藏成功',
+        icon:'success',
+        mask: true,
+      })
+    }
+    // 4.把数组存入缓存中
+    wx.setStorageSync('collect', collect)
+    // 修改data中的数据
+    this.setData({
+      isCollect
     })
   }
 
