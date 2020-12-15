@@ -1,15 +1,15 @@
 <view class="detail_swiper">
-     <swiper autoplay indicator-dots circular indicator-active-color="#FFCA2A"> 
-        <swiper-item >
-            <image class="" src="{{pics_mid1}}" mode="widthFix" />
-        </swiper-item>
-        <swiper-item >
-            <image class="" src="{{pics_mid2}}" mode="widthFix" />
-        </swiper-item>
-        <swiper-item >
-            <image class="" src="{{pics_mid3}}" mode="widthFix" />
-        </swiper-item>
-    </swiper>
+  <swiper autoplay indicator-dots circular indicator-active-color="#FFCA2A">
+    <swiper-item bindtap="handlePrevewImage" data-index="2">
+      <image class="" src="{{pics_mid1}}" mode="widthFix" />
+    </swiper-item>
+    <swiper-item bindtap="handlePrevewImage" data-index="1">
+      <image class="" src="{{pics_mid2}}" mode="widthFix" />
+    </swiper-item>
+    <swiper-item bindtap="handlePrevewImage" data-index="1">
+      <image class="" src="{{pics_mid3}}" mode="widthFix" />
+    </swiper-item>
+  </swiper>
 </view>
 <view class="goods_price">{{goods_price}}</view>
 <view class="goods_name_row">
@@ -24,6 +24,29 @@
   <view class="goods_info_title">图文详情</view>
   <view class="goods_info_content">
     <rich-text class="" nodes="{{goods_introduce}}"></rich-text>
+  </view>
+</view>
+
+<view class="btn_tool">
+  <view class="tool_item">
+    <view class="iconfont icon-kefu"></view>
+    <view>客户</view>
+    <button open-type="contact"></button>
+  </view>
+  <view class="tool_item">
+    <view class="iconfont icon-fenxiang"></view>
+    <view>分享</view>
+    <button open-type="share"></button>
+  </view>
+  <navigator open-type="switchTab" url="/pages/cart/index" class="tool_item">
+    <view class="iconfont icon-Icon_Bo-"></view>
+    <view>购物车</view>
+  </navigator>
+  <view class="tool_item btn_cart" bindtap="handleCartAdd">
+    加入购物车
+  </view>
+  <view class="tool_item btn_buy">
+     立即购买
   </view>
 </view>
   

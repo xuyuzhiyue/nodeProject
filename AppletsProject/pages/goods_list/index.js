@@ -129,7 +129,7 @@ Page({
   // 处理跳转事件
   bindViewTap(e){
     wx.navigateTo({
-      url: '/pages/goods_detail/index?goods_name='+e.currentTarget.dataset.item.goods_name+'&goods_price='+e.currentTarget.dataset.item.goods_price+'&pics_mid2='+e.currentTarget.dataset.item.pics_mid2+'&pics_mid3='+e.currentTarget.dataset.item.pics_mid3+'&pics_mid1='+e.currentTarget.dataset.item.pics_mid1+'&goods_introduce='+encodeURIComponent(e.currentTarget.dataset.item.goods_introduce),
+      url: '/pages/goods_detail/index?goods_name='+e.currentTarget.dataset.item.goods_name+'&goods_price='+e.currentTarget.dataset.item.goods_price+'&goods_small_logo='+e.currentTarget.dataset.item.goods_small_logo+'&pics_mid2='+e.currentTarget.dataset.item.pics_mid2+'&pics_mid3='+e.currentTarget.dataset.item.pics_mid3+'&pics_mid1='+e.currentTarget.dataset.item.pics_mid1+'&goods_id='+e.currentTarget.dataset.item.goods_id+'&goods_introduce='+encodeURIComponent(e.currentTarget.dataset.item.goods_introduce),
     })
     // console.log(e);
   }
