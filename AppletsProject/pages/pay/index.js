@@ -35,4 +35,32 @@ Page({
       address
     });
   },
+
+  // 支付页面
+  handlePay(){
+    wx.showToast({
+      title: '支付成功',
+      icon:'none',
+      mask: true,
+      success: (res) => {
+       setTimeout(()=>{
+          // 获取缓存中的购物数据
+          let cart = wx.getStorageSync('cart') || []
+          // 1.过滤后的购物车数组
+          let allCartTranOder = wx.getStorageSync('cartTranOder') || []
+          let cartTranOder = cart.filter(v=>v.checked)
+          wx.navigateTo({
+            url: '/pages/order/index',
+          })
+          // 1.过滤后的购物车数组
+          cart = cart.filter(v=>v.checked ===false)
+          wx.setStorageSync('cart',cart),
+          wx.setStorageSync('cartTranOder',[...allCartTranOder,...cartTranOder])
+          this.setData({
+            cart:[]
+          })
+       },2000)
+      },
+    })
+  }
 })

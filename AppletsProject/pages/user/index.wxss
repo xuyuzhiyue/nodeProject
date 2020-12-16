@@ -104,4 +104,13 @@ page {
   margin: 30rpx 0;
   background-color: white;
   padding: 20rpx;
+  position: relative;
+}
+.recommend_wrap button {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 30%;
+  text-align: center;
+  opacity: 0;
 }

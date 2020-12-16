@@ -13,11 +13,20 @@
 import {request} from "../../pages/request/index"
 // 引用es7语法
 import regeneratorRuntime from "../../pages/lib/runtime/runtime.js"
+
+const moment = require('../../pages/moment/moment');
+moment.locale('en', {
+  longDateFormat: {
+    l: "YYYY-MM-DD",
+    L: "YYYY-MM-DD HH:mm:ss",
+  }
+});
 Page({
 
   /**
    * 页面的初始数据
    */
+
   data: {
     goods_name:'',
     pics_mid3:'',
@@ -117,6 +126,8 @@ Page({
       // 不存在 第一次添加
       this.GoodsInfo.num = 1;
       this.GoodsInfo.checked = true
+      this.GoodsInfo.orderDate = Date.now()
+      this.GoodsInfo.orderDatess = moment().format('L')
       cart.push(this.GoodsInfo)
     }else{
       // 已经存在于购物车数据 执行 num++
@@ -166,6 +177,18 @@ Page({
     this.setData({
       isCollect
     })
+  },
+  
+  // 点击立即购买
+  handelPay(){
+    this.GoodsInfo.num = 1;
+    this.GoodsInfo.checked = true
+    this.GoodsInfo.orderDate = Date.now()
+    this.GoodsInfo.orderDatess = moment().format('L')
+    // let cart = wx.getStorageSync('cart') || []
+    wx.setStorageSync('cart', [this.GoodsInfo])
+    wx.navigateTo({
+      url: '/pages/pay/index',
+    })
   }
-
 })

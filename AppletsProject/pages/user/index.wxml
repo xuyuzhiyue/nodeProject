@@ -37,7 +37,7 @@
     <view class="orders_wrap">
       <view class="orders_title">我的订单</view>
       <view class="order_content">
-        <navigator>
+        <navigator url="/pages/order/index">
             <view class="iconfont icon-ding_dan"></view>
             <view class="order_name">全部订单</view>
         </navigator>
@@ -72,6 +72,7 @@
     <!-- 推荐 -->
     <view class="recommend_wrap">
       把应用推荐给其他人
+      <button open-type="share"></button>
     </view>
   </view>
 </view>

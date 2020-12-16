@@ -49,7 +49,7 @@
      <view class="contantFear">包含运费</view>
    </vew>
    <!-- 结算 -->
-   <view class="order_pay_wrap">
+   <view class="order_pay_wrap" bindtap="handlePay">
      支付({{totalNum}})
    </view>
  </view>
