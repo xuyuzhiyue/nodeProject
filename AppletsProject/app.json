@@ -14,7 +14,8 @@
     "pages/auth/index",
     "pages/pay/index",
     "pages/components/SearchInput/SearchInput",
-    "pages/components/Tabs/Tabs"
+    "pages/components/Tabs/Tabs",
+    "pages/components/UpImg/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

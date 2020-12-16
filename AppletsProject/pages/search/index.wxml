@@ -1,6 +1,6 @@
 <view class="search_row">
   <input value="{{inputVal}}" placeholder="请输入您要搜索的商品" bindinput="handleInput"/>
-  <button hidden="{{!isFocus}}" bindtap="hanldeCancel">取消</button>
+  <button hidden="{{!isFocus}}" bindtap="hanldeCancel" >取消</button>
 </view>
 <view class="search_content">
   <view class="search_item"
