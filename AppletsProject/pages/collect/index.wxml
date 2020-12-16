@@ -1,2 +1,26 @@
-<!--pages/collect/index.wxml-->
-<text>pages/collect/index.wxml</text>
+<Tabs tabs="{{collectList}}" bindtabsItemChange="handleTablsItemChange"></Tabs>
+
+<view class="collect_main">
+  <view class="collect_title">
+    <text class="collect_tips active" >全部</text>
+    <text class="collect_tips " >正在热卖</text>  
+    <text class="collect_tips " >即将上线</text>
+  </view>
+  <view class="collect_content">
+    <view class="goods_item" wx:for="{{collect}}" wx:key="goods_id" 
+        bindtap="bindViewTap"
+        data-item="{{item}}"
+        >
+          <!-- 左侧 图片的容器 -->
+          <view class="goods_img_wrap">
+            <image src="{{item.goods_small_logo}}" mode="widthFix" />
+          </view>
+          <!-- 右侧商品的容器 -->
+          <view class="goods_info_wrap">
+            <!-- 名称 -->
+            <view class="goods_name">{{item.goods_name}}</view>
+            <view class="goods_price">￥{{item.goods_price}}</view>
+          </view>
+        </view>
+  </view>
+</view>

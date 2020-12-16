@@ -24,6 +24,20 @@ router.get('/goodsDetail',(req,res)=>{
   })
   })
 
+ //   获取字段goods_name对的商品信息进行搜索
+router.post('/goodsDetailSearch',(req,res)=>{
+  const goods_name = req.body.goods_name
+  const sql = `select * from goodsdetail where isdel = 0 and goods_name like '%${goods_name}%'`
+  console.log(sql);
+  connection.query(sql,(err, result) => {
+    if (err) throw res.send({ err_code: 1, message: '该数据不存在' });
+    res.send({
+      err_code: 0,
+      message: result
+    })
+  })
+  }) 
+
   //   根据good_Type和cat_type获取所有的商品信息
 router.post('/goodsDetail2',(req,res)=>{
     const goodsType = req.body.goodsType
