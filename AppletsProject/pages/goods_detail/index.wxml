@@ -4,14 +4,14 @@
       <image class="" src="{{pics_mid1}}" mode="widthFix" />
     </swiper-item>
     <swiper-item bindtap="handlePrevewImage" data-index="1">
-      <image class="" src="{{pics_mid2}}" mode="widthFix" />
+      <image class="" src="{{pics_mid3}}" mode="widthFix" />
     </swiper-item>
     <swiper-item bindtap="handlePrevewImage" data-index="1">
-      <image class="" src="{{pics_mid3}}" mode="widthFix" />
+      <image class="" src="{{pics_mid2}}" mode="widthFix" />
     </swiper-item>
   </swiper>
 </view>
-<view class="goods_price">{{goods_price}}</view>
+<view class="goods_price">￥{{goods_price}}</view>
 <view class="goods_name_row">
   <view class="goods_name">{{goods_name}}</view>
   <view class="goods_list" bindtap="handleCollect">

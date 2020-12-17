@@ -1,6 +1,7 @@
 // /引用发送请求的方法
 import { request } from "../../pages/request/index.js"
-
+// 引用es7语法
+import regeneratorRuntime from "../../pages/lib/runtime/runtime.js"
 Page({
   data: {
     //  轮播图数据
@@ -55,5 +56,34 @@ Page({
           floorList: result
         })
       })
-    }
+    },
+    // 处理轮播图跳转事件
+    Params:{
+      goodsType:'',
+      cat_type:'',
+      pagenum:1,
+      pagesize:10
+    },
+    async bindViewTap(e){
+    console.log(e);
+    this.Params.goodsType = e.currentTarget.dataset.item.goodsType
+    this.Params.cat_type = e.currentTarget.dataset.item.cat_type
+    // const goods_id = e.currentTarget.dataset.item.goods_id
+    let itemGoods = await request({
+      url:"/goodsDetail2",
+      method:"POST",
+      data:this.Params
+    })
+    let item = []
+    itemGoods.goods.forEach(v =>{
+      if(v.goodsType === this.Params.goodsType && v.cat_type === this.Params.cat_type ){
+        item.push(v)
+      }
+      return
+    })
+    // console.log(item);
+      wx.navigateTo({
+        url: '/pages/goods_detail/index?goods_name='+item[0].goods_name+'&goods_price='+item[0].goods_price+'&goods_small_logo='+item[0].goods_small_logo+'&pics_mid2='+item[0].pics_mid2+'&pics_mid3='+item[0].pics_mid3+'&pics_mid1='+item[0].pics_mid1+'&goods_id='+item[0].goods_id+'&goods_introduce='+encodeURIComponent(item[0].goods_introduce)
+     })
+  }
 })

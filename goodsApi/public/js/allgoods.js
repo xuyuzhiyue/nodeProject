@@ -76,6 +76,9 @@ let liftHome
 let juLiftPaer
 let juLiftClean
 
+
+// 其他
+let OtherData
 function allMysqlData(res) {
 
     // 大家电
@@ -673,6 +676,22 @@ function allMysqlData(res) {
             }
         })
 
+        
+        // 1.获取其他数据
+        const sqlOtherData = 'select * from allgoods where isdel = 0 and cat_type = "其他"'
+        connection.query(sqlOtherData, (err, result) => {
+            if (err) throw res.send({ err_code: 1, message: '数据不存在' });
+            OtherData = {
+                "cat_id": 999,
+                "cat_name": "其他",
+                "cat_pid": 999,
+                "cat_level": 1,
+                "cat_deleted": false,
+                "cat_icon": "/full/none.jpg",
+                "children": result
+            }
+        })
+
     //   总的拼接
     allData = {
         "message": [{
@@ -763,6 +782,14 @@ function allMysqlData(res) {
             "cat_deleted": false,
             "cat_icon": "/full/none.jpg",
             "children": [juLiftClean,juLiftPaer]
+        },{
+            "cat_id": 999,
+            "cat_name": "其他",
+            "cat_pid": 0,
+            "cat_level": 0,
+            "cat_deleted": false,
+            "cat_icon": "/full/none.jpg",
+            "children": [OtherData]
         }]
     }
     res.send(allData)

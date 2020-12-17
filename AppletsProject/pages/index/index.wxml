@@ -20,20 +20,55 @@
      -->
         <swiper autoplay indicator-dots circular indicator-active-color="#FFCA2A"> 
            <swiper-item wx:for="{{swiperList}}" wx:key="goods_id">
-             <navigator >
-                <image mode="widthFix" src="{{item.image_src}}"/>
-             </navigator>
+             <view bindtap="bindViewTap" data-item="{{item}}">
+                <image mode="scaleToFill" src="{{item.image_src}}"/>
+             </view>
            </swiper-item>
         </swiper>
     </view>
 
     <!-- 导航开始 -->
-    <view class="index_cate">
+    <!-- <view class="index_cate">
        <navigator wx:for="{{catesList}}" wx:key="id">
           <image mode="widthFix" src="{{item.image_src}}"/>
        </navigator>
+    </view> -->
+
+    <view class="index_area">
+       <view class="index_row">
+          <text class="iconfont icon-baokuan"></text>
+          <view class="index_name">今日火爆</view>
+       </view>
+              <view class="index_row">
+          <text class="iconfont icon-jingxi"></text>
+          <view class="index_name">体育区</view>
+       </view>
+              <view class="index_row">
+          <text class="iconfont icon-youhui"></text>
+          <view class="index_name">卡通手办</view>
+       </view>
+              <view class="index_row">
+          <text class="iconfont icon-pifajia"></text>
+          <view class="index_name">批发</view>
+       </view>
+              <view class="index_row">
+          <text class="iconfont icon-bangdan"></text>
+          <view class="index_name">榜单</view>
+       </view>
+              <view class="index_row">
+          <text class="iconfont icon-shuma-pailide"></text>
+          <view class="index_name">数码家电</view>
+       </view>
+              <view class="index_row">
+          <text class="iconfont icon-huochepiao"></text>
+          <view class="index_name">车票</view>
+       </view>
+              <view class="index_row">
+          <text class="iconfont icon-tushuqikan"></text>
+          <view class="index_name">图书</view>
+       </view>
     </view>
-      
+
     <!-- 楼层 -->
     <view class="index_floor">
        <view class="floor_group" wx:for="{{floorList}}" 

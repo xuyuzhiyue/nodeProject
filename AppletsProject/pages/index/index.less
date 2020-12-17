@@ -1,25 +1,47 @@
+swiper{
+  margin: 20rpx 20rpx;
+  background-color: var(--themeColor);
 .index_swiper{
   swiper{
     width: 750rpx;
-    height: 340rpx;
+    height: 470rpx;
     image{
       width: 100%;
+      height: 100%;
     }
   }
 }
+}
 
 
-.index_cate{
+// .index_cate{
+//   display: flex;
+//   navigator{
+//     padding: 20rpx;
+//     flex: 1;
+//     image{
+//       width: 100%;
+//     }
+//   }
+// }
+
+.index_area{
   display: flex;
-  navigator{
-    padding: 20rpx;
-    flex: 1;
-    image{
-      width: 100%;
+  flex-wrap: wrap;
+  .index_row{
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+    margin-bottom: 20rpx;
+    width: 25%;
+    .iconfont{
+      color: var(--themeColor);
+      font-size: 28px;
     }
   }
-}
 
+}
 
 .index_floor{
   .floor_group{
