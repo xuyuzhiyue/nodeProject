@@ -1,6 +1,7 @@
 {
   "usingComponents": {
-    "SearchInput":"../../pages/components/SearchInput/SearchInput"
+    "SearchInput":"../../pages/components/SearchInput/SearchInput",
+    "Tabs":"../../pages/components/Tabs/Tabs"
   },
   "navigationBarTitleText": "购物袋首页"
 }

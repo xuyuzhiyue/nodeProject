@@ -88,11 +88,12 @@ router.get('/', function (req, res) {
 }
  */
 
-
 // 所有商品数据
 router.get('/allgoods', function (req, res) {
   allgoods(res)
 })
+
+
 // router.get('/classify', function(req, res) {
 //   fs.readFile(path.join(__dirname,'../public/classify.json'),(err,data) =>{
 //     if(err) throw err
@@ -100,12 +101,12 @@ router.get('/allgoods', function (req, res) {
 //   })
 // });
 
-router.get('/productList', function (req, res) {
-  fs.readFile(path.join(__dirname, '../public/productList.json'), (err, data) => {
-    if (err) throw err
-    res.send(data.toString())
-  })
-})
+// router.get('/productList', function (req, res) {
+//   fs.readFile(path.join(__dirname, '../public/productList.json'), (err, data) => {
+//     if (err) throw err
+//     res.send(data.toString())
+//   })
+// })
 
 // router.get('/rotationChart',function(req,res){
 //   fs.readFile(path.join(__dirname,'../public/rotationChart.json'),(err,data) =>{
@@ -151,6 +152,30 @@ router.get('/rotationChart', function (req, res) {
   })
 })
 
+
+// 综合商品总数
+router.get('/comprehensive', function (req, res) {
+  const sql = 'select * from comprehensive where isdel = 0'
+  connection.query(sql, (err, result) => {
+    if (err) throw res.send({ err_code: 1, message: '数据不存在' });
+    res.send({
+      err_code: 0,
+      message: result
+    })
+  })
+})
+// 综合商品根据hot_number进行排序
+router.get('/comprehensiveOrderBy', function (req, res) {
+  const sql = 'select * from comprehensive where isdel = 0 ORDER BY hot_number DESC'
+  connection.query(sql, (err, result) => {
+    if (err) throw res.send({ err_code: 1, message: '数据不存在' });
+    res.send({
+      err_code: 0,
+      message: result
+    })
+  })
+})
+
 // router.get('/Navigation',function(req,res){
 //   fs.readFile(path.join(__dirname,'../public/Navigation.json'),(err,data) =>{
 //     if(err) throw err
@@ -181,16 +206,16 @@ router.get('/rotationChart', function (req, res) {
   }]
 }
  */
-router.get('/navigation', function (req, res) {
-  const sql = 'select * from navigation where isdel = 0'
-  connection.query(sql, (err, result) => {
-    if (err) throw res.send({ err_code: 1, message: '数据不存在' });
-    res.send({
-      err_code: 0,
-      message: result
-    })
-  })
-})
+// router.get('/navigation', function (req, res) {
+//   const sql = 'select * from navigation where isdel = 0'
+//   connection.query(sql, (err, result) => {
+//     if (err) throw res.send({ err_code: 1, message: '数据不存在' });
+//     res.send({
+//       err_code: 0,
+//       message: result
+//     })
+//   })
+// })
 
 
 // 楼层
@@ -201,9 +226,9 @@ router.get('/navigation', function (req, res) {
 //   })
 // })
 
-let fashion = []
-let floor = []
-let box = []
+// let fashion = []
+// let floor = []
+// let box = []
 
 /**
  * @api {get}  /floor
@@ -231,100 +256,100 @@ let box = []
     }}]
 }
  */
-router.get('/floor', function (req, res) {
+// router.get('/floor', function (req, res) {
   // location.reload()
   // 获取时尚女装数据
-  const sqlFashion = 'select * from floor where isdel = 0 and type = "时尚女装"'
-  connection.query(sqlFashion, (err, result) => {
-    if (err) throw res.send({ err_code: 1, message: '数据不存在' });
-    fashion = []
-    result.forEach(element => {
-      fashion.push({
-        "name": element.name,
-        "image_src": element.image_src,
-        "image_width": element.image_width,
-        "open_type": element.open_type,
-        "navigator_url": element.navigator_url
-      })
-    });
-  })
+  // const sqlFashion = 'select * from floor where isdel = 0 and type = "时尚女装"'
+  // connection.query(sqlFashion, (err, result) => {
+  //   if (err) throw res.send({ err_code: 1, message: '数据不存在' });
+  //   fashion = []
+  //   result.forEach(element => {
+  //     fashion.push({
+  //       "name": element.name,
+  //       "image_src": element.image_src,
+  //       "image_width": element.image_width,
+  //       "open_type": element.open_type,
+  //       "navigator_url": element.navigator_url
+  //     })
+  //   });
+  // })
   // res.send(fashion)
   // 获取户外活动数据
-  const sqlFloor = 'select * from floor where isdel = 0 and type = "户外活动"'
-  connection.query(sqlFloor, (err, result) => {
+  // const sqlFloor = 'select * from floor where isdel = 0 and type = "户外活动"'
+  // connection.query(sqlFloor, (err, result) => {
 
-    if (err) throw res.send({ err_code: 1, message: '数据不存在' });
-    floor = []
-    result.forEach(element => {
-      floor.push({
-        "name": element.name,
-        "image_src": element.image_src,
-        "image_width": element.image_width,
-        "open_type": element.open_type,
-        "navigator_url": element.navigator_url
-      })
-    });
-  })
+  //   if (err) throw res.send({ err_code: 1, message: '数据不存在' });
+  //   floor = []
+  //   result.forEach(element => {
+  //     floor.push({
+  //       "name": element.name,
+  //       "image_src": element.image_src,
+  //       "image_width": element.image_width,
+  //       "open_type": element.open_type,
+  //       "navigator_url": element.navigator_url
+  //     })
+  //   });
+  // })
   //       // 获取箱包配饰数据
-  const sqlBox = 'select * from floor where isdel = 0 and type = "箱包配饰"'
-  connection.query(sqlBox, (err, result) => {
+//   const sqlBox = 'select * from floor where isdel = 0 and type = "箱包配饰"'
+//   connection.query(sqlBox, (err, result) => {
 
-    if (err) throw res.send({ err_code: 1, message: '数据不存在' });
-    box = []
-    result.forEach(element => {
-      box.push({
-        "name": element.name,
-        "image_src": element.image_src,
-        "image_width": element.image_width,
-        "open_type": element.open_type,
-        "navigator_url": element.navigator_url
-      })
-    });
-  })
-  let fashionFin = [{
-    "floor_title": {
-      "name": "时尚女装",
-      "image_src": "https://api-hmugo-web.itheima.net/pyg/pic_floor01_title.png"
-    },
-    "product_list": fashion
-  }, {
-    "floor_title": {
-      "name": "户外活动",
-      "image_src": "https://api-hmugo-web.itheima.net/pyg/pic_floor02_title.png"
-    },
-    "product_list": floor
-  }, {
-    "floor_title": {
-      "name": "箱包配饰",
-      "image_src": "https://api-hmugo-web.itheima.net/pyg/pic_floor03_title.png"
-    },
-    "product_list": box
-  }]
-  let everyData = {
-    "message": fashionFin,
-    "meta": {
-      "msg": "获取成功",
-      "status": 200
-    }
-  }
+//     if (err) throw res.send({ err_code: 1, message: '数据不存在' });
+//     box = []
+//     result.forEach(element => {
+//       box.push({
+//         "name": element.name,
+//         "image_src": element.image_src,
+//         "image_width": element.image_width,
+//         "open_type": element.open_type,
+//         "navigator_url": element.navigator_url
+//       })
+//     });
+//   })
+//   let fashionFin = [{
+//     "floor_title": {
+//       "name": "时尚女装",
+//       "image_src": "https://api-hmugo-web.itheima.net/pyg/pic_floor01_title.png"
+//     },
+//     "product_list": fashion
+//   }, {
+//     "floor_title": {
+//       "name": "户外活动",
+//       "image_src": "https://api-hmugo-web.itheima.net/pyg/pic_floor02_title.png"
+//     },
+//     "product_list": floor
+//   }, {
+//     "floor_title": {
+//       "name": "箱包配饰",
+//       "image_src": "https://api-hmugo-web.itheima.net/pyg/pic_floor03_title.png"
+//     },
+//     "product_list": box
+//   }]
+//   let everyData = {
+//     "message": fashionFin,
+//     "meta": {
+//       "msg": "获取成功",
+//       "status": 200
+//     }
+//   }
 
-  res.send(everyData)
-})
+//   res.send(everyData)
+// })
 
 
 // 读取navigation 导航
-router.get('/navigation/icon_index_nav1', function (req, res) {
-  icon_index_nav1(res)
-})
-router.get('/navigation/icon_index_nav2', function (req, res) {
-  icon_index_nav2(res)
-})
-router.get('/navigation/icon_index_nav3', function (req, res) {
-  icon_index_nav3(res)
-})
-router.get('/navigation/icon_index_nav4', function (req, res) {
-  icon_index_nav4(res)
-})
+// router.get('/navigation/icon_index_nav1', function (req, res) {
+//   icon_index_nav1(res)
+// })
+// router.get('/navigation/icon_index_nav2', function (req, res) {
+//   icon_index_nav2(res)
+// })
+// router.get('/navigation/icon_index_nav3', function (req, res) {
+//   icon_index_nav3(res)
+// })
+// router.get('/navigation/icon_index_nav4', function (req, res) {
+//   icon_index_nav4(res)
+// })
 // 读取轮播图
 router.get('/rotat/banner1', function (req, res) {
   banner1(res)
@@ -335,51 +360,51 @@ router.get('/rotat/banner2', function (req, res) {
 router.get('/rotat/banner3', function (req, res) {
   banner3(res)
 })
-// 读取floor 楼层
-router.get('/floor/pic_floor1', function (req, res) {
-  pic_floor1(res)
-})
-router.get('/floor/pic_floor2', function (req, res) {
-  pic_floor2(res)
-})
-router.get('/floor/pic_floor3', function (req, res) {
-  pic_floor3(res)
-})
-router.get('/floor/pic_floor4', function (req, res) {
-  pic_floor4(res)
-})
-router.get('/floor/pic_floor5', function (req, res) {
-  pic_floor5(res)
-})
-router.get('/floor/pic_floor6', function (req, res) {
-  pic_floor6(res)
-})
-router.get('/floor/pic_floor7', function (req, res) {
-  pic_floor7(res)
-})
-router.get('/floor/pic_floor8', function (req, res) {
-  pic_floor8(res)
-})
-router.get('/floor/pic_floor9', function (req, res) {
-  pic_floor9(res)
-})
-router.get('/floor/pic_floor10', function (req, res) {
-  pic_floor10(res)
-})
-router.get('/floor/pic_floor11', function (req, res) {
-  pic_floor11(res)
-})
-router.get('/floor/pic_floor12', function (req, res) {
-  pic_floor12(res)
-})
-router.get('/floor/pic_floor13', function (req, res) {
-  pic_floor13(res)
-})
-router.get('/floor/pic_floor14', function (req, res) {
-  pic_floor14(res)
-})
-router.get('/floor/pic_floor15', function (req, res) {
-  pic_floor15(res)
-})
+// // 读取floor 楼层
+// router.get('/floor/pic_floor1', function (req, res) {
+//   pic_floor1(res)
+// })
+// router.get('/floor/pic_floor2', function (req, res) {
+//   pic_floor2(res)
+// })
+// router.get('/floor/pic_floor3', function (req, res) {
+//   pic_floor3(res)
+// })
+// router.get('/floor/pic_floor4', function (req, res) {
+//   pic_floor4(res)
+// })
+// router.get('/floor/pic_floor5', function (req, res) {
+//   pic_floor5(res)
+// })
+// router.get('/floor/pic_floor6', function (req, res) {
+//   pic_floor6(res)
+// })
+// router.get('/floor/pic_floor7', function (req, res) {
+//   pic_floor7(res)
+// })
+// router.get('/floor/pic_floor8', function (req, res) {
+//   pic_floor8(res)
+// })
+// router.get('/floor/pic_floor9', function (req, res) {
+//   pic_floor9(res)
+// })
+// router.get('/floor/pic_floor10', function (req, res) {
+//   pic_floor10(res)
+// })
+// router.get('/floor/pic_floor11', function (req, res) {
+//   pic_floor11(res)
+// })
+// router.get('/floor/pic_floor12', function (req, res) {
+//   pic_floor12(res)
+// })
+// router.get('/floor/pic_floor13', function (req, res) {
+//   pic_floor13(res)
+// })
+// router.get('/floor/pic_floor14', function (req, res) {
+//   pic_floor14(res)
+// })
+// router.get('/floor/pic_floor15', function (req, res) {
+//   pic_floor15(res)
+// })
 
 module.exports = router;

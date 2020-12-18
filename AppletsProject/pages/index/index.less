@@ -43,37 +43,87 @@ swiper{
 
 }
 
+// .index_floor{
+//   .floor_group{
+//     .floor_title{
+//       padding: 10rpx 0;
+//       image{
+//         width: 100%;
+//       }
+//     }
+//     .floor_list{
+//       // 清除浮动
+//       overflow: hidden;
+//       navigator{
+//         float: left;
+//         width: 33.33%;
+//         // 后四个超链接
+//         &:nth-last-child(-n+4){
+//           // 原图的宽度 232 * 386 
+//           //第一张图片的高度  232 / 386 = 33.33vw / height 
+//           height: 33.33vw * 386 / 232 / 2;
+//           border-left: 10rpx solid #fff;
+//         }
+//         //  2 3两个超链接
+//         &:nth-child(2),
+//         &:nth-child(3){
+//           border-bottom: 10rpx solid #fff;
+//         }
+//         image{
+//           width: 100%;
+//           height: 100%;
+//         }
+//       }
+//     }
+//   }
+// }
+
 .index_floor{
-  .floor_group{
-    .floor_title{
-      padding: 10rpx 0;
-      image{
-        width: 100%;
+  .index_row{
+    display: flex;
+    margin: 20rpx;
+    .index_video{
+      video{
+        width: 250rpx;
+        height: 200rpx;
       }
     }
-    .floor_list{
-      // 清除浮动
-      overflow: hidden;
-      navigator{
-        float: left;
-        width: 33.33%;
-        // 后四个超链接
-        &:nth-last-child(-n+4){
-          // 原图的宽度 232 * 386 
-          //第一张图片的高度  232 / 386 = 33.33vw / height 
-          height: 33.33vw * 386 / 232 / 2;
-          border-left: 10rpx solid #fff;
+    .index_text{
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .index_name{
+        margin-left: 20rpx;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
+      .index_row{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        .index_price{
+          color: var(--themeColor);
         }
-        //  2 3两个超链接
-        &:nth-child(2),
-        &:nth-child(3){
-          border-bottom: 10rpx solid #fff;
-        }
-        image{
-          width: 100%;
-          height: 100%;
+        .index_pay{
+          padding: 20rpx;
+          background: rgb(236, 21, 14);
+          color:white;
+          margin-right: 20rpx;
         }
       }
     }
   }
 }
+
+.index_video{
+  image{
+    width: 100%;
+    height: 100%;
+  }
+}
+

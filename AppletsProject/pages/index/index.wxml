@@ -35,53 +35,53 @@
     </view> -->
 
     <view class="index_area">
-       <view class="index_row">
+       <navigator class="index_row" open-type="switchTab" url="/pages/category/index">
           <text class="iconfont icon-baokuan"></text>
           <view class="index_name">今日火爆</view>
-       </view>
-              <view class="index_row">
+       </navigator>
+       <navigator class="index_row" url="/pages/goods_list/index?goodsType=体育用品&cat_type=体育">
           <text class="iconfont icon-jingxi"></text>
           <view class="index_name">体育区</view>
-       </view>
-              <view class="index_row">
+       </navigator>
+       <navigator class="index_row" url="/pages/goods_list/index?goodsType=卡通人物&cat_type=卡通">
           <text class="iconfont icon-youhui"></text>
           <view class="index_name">卡通手办</view>
-       </view>
-              <view class="index_row">
+       </navigator>
+       <navigator class="index_row" open-type="switchTab" url="/pages/category/index">
           <text class="iconfont icon-pifajia"></text>
           <view class="index_name">批发</view>
-       </view>
-              <view class="index_row">
+       </navigator>
+       <navigator class="index_row" open-type="switchTab" url="/pages/category/index">
           <text class="iconfont icon-bangdan"></text>
           <view class="index_name">榜单</view>
-       </view>
-              <view class="index_row">
+       </navigator>
+       <navigator class="index_row" open-type="switchTab" url="/pages/category/index">
           <text class="iconfont icon-shuma-pailide"></text>
           <view class="index_name">数码家电</view>
-       </view>
-              <view class="index_row">
+       </navigator>
+       <navigator class="index_row"  open-type="switchTab" url="/pages/category/index">
           <text class="iconfont icon-huochepiao"></text>
           <view class="index_name">车票</view>
-       </view>
-              <view class="index_row">
+       </navigator>
+       <navigator class="index_row" url="/pages/goods_list/index?goodsType=中国图书&cat_type=图书">
           <text class="iconfont icon-tushuqikan"></text>
           <view class="index_name">图书</view>
-       </view>
+       </navigator>
     </view>
 
     <!-- 楼层 -->
-    <view class="index_floor">
+    <!-- <view class="index_floor">
        <view class="floor_group" wx:for="{{floorList}}" 
        wx:for-item="item1"
        wx:for-index="index1"
        wx:key="floor_title"
-       >
+       > -->
           <!-- 标题 -->
-         <view class="floor_title">
+         <!-- <view class="floor_title">
            <image  src="{{item1.floor_title.image_src}}" mode="widthFix"/>
-         </view> 
+         </view>  -->
          <!-- 内容 -->
-         <view class="floor_list">
+         <!-- <view class="floor_list">
            <navigator
            wx:for="{{item1.product_list}}"
             wx:for-item="item2"
@@ -92,6 +92,35 @@
            </navigator>
          </view>
        </view>
-    </view>
-      
+    </view> -->
+    <Tabs tabs="{{tabs}}" bindtabsItemChange="handleTabsItemChange">
+      <view wx:if="{{tabs[0].isActive}}" class="index_floor">
+        <view class="index_row" wx:for="{{comprehensiveData}}" wx:key="goods_id" >
+           <view class="index_video">
+             <video  enable-auto-rotation="true" custom-cache="{{false}}" class="" show-mute-btn="true" src="{{item.image_src}}"></video>
+           </view>
+           <view class="index_text">
+             <view class="index_name">{{item.goods_name}}</view>
+             <view class="index_row">
+                 <view class="index_price">价格:${{item.goods_price}}</view>
+                 <view class="index_pay" bindtap="bindleFloor" data-item="{{item}}">立即购买</view>
+             </view>
+           </view>
+        </view>         
+      </view>
+      <view wx:if="{{tabs[1].isActive}}" class="index_floor">
+         <view class="index_row" wx:for="{{comprehensiveOrderBy}}" wx:key="goods_id" >
+           <view class="index_video">
+            <image  src="{{item.goods_small_logo}}" mode="widthFix" style="heigth:80rpx;width:150rpx"/>
+           </view>
+           <view class="index_text">
+             <view class="index_name">{{item.goods_name}}</view>
+             <view class="index_row">
+                 <view class="index_price">价格:${{item.goods_price}}</view>
+                 <view class="index_pay" bindtap="bindleFloor" data-item="{{item}}">立即购买</view>
+             </view>
+           </view>
+        </view>  
+      </view>
+    </Tabs>
 </view>

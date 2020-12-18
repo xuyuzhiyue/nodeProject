@@ -36,11 +36,11 @@ Page({
         value:"销量",
         isActive:false
       },
-      {
-        id:2,
-        value:"价格",
-        isActive:false
-      }
+      // {
+      //   id:2,
+      //   value:"价格",
+      //   isActive:false
+      // }
     ],
     goodsList:[]
   },
