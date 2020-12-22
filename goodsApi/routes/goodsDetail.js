@@ -24,7 +24,36 @@ router.get('/goodsDetail',(req,res)=>{
   })
   })
 
- //   获取字段goods_name对的商品信息进行搜索
+  //   获取字段goodsType对的商品名字信息进行搜索
+router.post('/SearchGoodsType',(req,res)=>{
+  const goodsType = req.body.goodsType
+  const startTime = req.body.startTime
+  const endTime =  req.body.endTime
+  if(startTime === undefined && endTime === undefined){
+    const sqlType = `select * from goodsdetail where isdel = 0 and goodsType = '${goodsType}' ;`
+    console.log(sqlType);
+    connection.query(sqlType,(err, result) => {
+      if (err) throw res.send({ err_code: 1, message: '该数据不存在' });
+      res.send({
+        err_code: 0,
+        message: result
+      })
+    })
+  }else{
+    const sqlTime = `select * from goodsdetail where isdel = 0 and goodsType = '${goodsType}' and add_time Between '${startTime}' And '${endTime}';`
+    console.log(sqlTime);
+    connection.query(sqlTime,(err, result) => {
+      if (err) throw res.send({ err_code: 1, message: '该数据不存在' });
+      res.send({
+        err_code: 0,
+        message: result
+      })
+    })
+  }
+
+})
+
+ //   获取字段goods_name对的商品名字信息进行搜索
 router.post('/goodsDetailSearch',(req,res)=>{
   const goods_name = req.body.goods_name
   const sql = `select * from goodsdetail where isdel = 0 and goods_name like '%${goods_name}%'`
