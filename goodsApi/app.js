@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors')
+// 引用seesion模块
+const session = require('express-session')
 
 var indexRouter = require('./routes/index');
 var goodsDetailRouter = require('./routes/goodsDetail');
@@ -16,6 +18,13 @@ app.use(cors())
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+app.use(session({
+  secret:"kmknlinolni",
+  resave:'true',
+  cookie:{},
+  saveUninitialized:'true',
+  // maxAge:200000
+}))
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
