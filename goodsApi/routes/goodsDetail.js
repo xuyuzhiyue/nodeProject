@@ -22,8 +22,24 @@ router.get('/goodsDetail',(req,res)=>{
       message: result
     })
   })
-  })
+})
 
+
+ //   根据id删除商品信息
+ router.delete('/goodsDetail/:id', (req, res) => {
+  const id = req.params.id
+  const sql = 'update goodsdetail set isdel = 1 where goods_id = ?'
+  connection.query(sql, id, (err, result) => {
+    if (err) throw console.log('数据获取失败');
+    if (result.affectedRows < 1) return res.send({ err_code: 1, message: '删除的用户失败' });
+    res.send({
+      err_code: 0,
+      message: '删除成功'
+    })
+  })
+})
+  
+  
   //   获取字段goodsType对的商品名字信息进行搜索
 router.post('/SearchGoodsType',(req,res)=>{
   const goodsType = req.body.goodsType
@@ -52,6 +68,26 @@ router.post('/SearchGoodsType',(req,res)=>{
   }
 
 })
+
+
+ //   获取字段goods_name对的商品名字信息进行搜索
+ router.post('/dateSearch',(req,res)=>{
+  const startTime = req.body.startTime
+  const endTime =  req.body.endTime
+  const sql = `select * from goodsdetail where isdel = 0 and  add_time Between '${startTime}' And '${endTime}';`
+  console.log(sql);
+  connection.query(sql,(err, result) => {
+    if (err) throw res.send({ err_code: 1, message: '该数据不存在' });
+    res.send({
+      err_code: 0,
+      message: result
+    })
+  })
+}) 
+
+
+
+  // ---小程序
 
  //   获取字段goods_name对的商品名字信息进行搜索
 router.post('/goodsDetailSearch',(req,res)=>{
