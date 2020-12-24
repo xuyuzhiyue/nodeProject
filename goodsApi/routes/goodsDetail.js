@@ -4,6 +4,7 @@ var fs = require('fs')
 var path = require('path')
 let mysql = require('mysql')
 var request = require('request')
+let moment = require('moment')
 
 let connection = mysql.createConnection({
     host: 'localhost',
@@ -38,7 +39,21 @@ router.get('/goodsDetail',(req,res)=>{
     })
   })
 })
-  
+
+ //   增加商品信息
+router.post('/goodsDetail', (req, res) => {
+  const body = req.body
+  const sql = 'insert into goodsdetail set ?'
+  connection.query(sql, body, (err, result) => {
+    console.log(result);
+    if (err) throw console.log('数据获取失败');
+    if (result.affectedRows < 1) return res.send({ err_code: 1, message: '添加失败' });
+    res.send({
+      err_code: 0,
+      message: '添加成功'
+    })
+  })
+})
   
   //   获取字段goodsType对的商品名字信息进行搜索
 router.post('/SearchGoodsType',(req,res)=>{
