@@ -93,6 +93,30 @@ router.get('/allgoods', function (req, res) {
   allgoods(res)
 })
 
+// 查询所有商品类型数据
+router.get('/allgoodsType', function (req, res) {
+  const sql = 'select * from allgoods where isdel = 0'
+  connection.query(sql, (err, result) => {
+    if (err) throw res.send({ err_code: 1, message: '数据不存在' });
+    res.send({
+      err_code: 0,
+      message: result
+    })
+  })
+})
+// 删除所有商品类型数据
+router.delete('/allgoodsType/:id', function (req, res) {
+  const id = req.params.id
+  const sql = 'update allgoods set isdel = 1 where cat_id = ?'
+  connection.query(sql, id, (err, result) => {
+    if (err) throw console.log('数据获取失败');
+    if (result.affectedRows < 1) return res.send({ err_code: 1, message: '删除的用户失败' });
+    res.send({
+      err_code: 0,
+      message: '删除成功'
+    })
+  })
+})
 
 // router.get('/classify', function(req, res) {
 //   fs.readFile(path.join(__dirname,'../public/classify.json'),(err,data) =>{
@@ -140,7 +164,7 @@ router.get('/allgoods', function (req, res) {
   }]
 }
  */
-// 轮播图
+// 查询轮播图
 router.get('/rotationChart', function (req, res) {
   const sql = 'select * from rotationChart where isdel = 0'
   connection.query(sql, (err, result) => {
@@ -152,8 +176,35 @@ router.get('/rotationChart', function (req, res) {
   })
 })
 
+// 删除轮播图
+router.delete('/rotationChart/:id', function (req, res) {
+    const id = req.params.id
+  const sql = 'update rotationChart set isdel = 1 where goods_id = ?'
+  connection.query(sql, id, (err, result) => {
+    if (err) throw console.log('数据获取失败');
+    if (result.affectedRows < 1) return res.send({ err_code: 1, message: '删除的用户失败' });
+    res.send({
+      err_code: 0,
+      message: '删除成功'
+    })
+  })
+})
 
-// 综合商品总数
+// router.delete('/users/:id', (req, res) => {
+//   const id = req.params.id
+//   const sql = 'update user set isdel = 1 where id = ?'
+//   connection.query(sql, id, (err, result) => {
+//     if (err) throw console.log('数据获取失败');
+//     if (result.affectedRows < 1) return res.send({ err_code: 1, message: '删除的用户失败' });
+//     res.send({
+//       err_code: 0,
+//       message: '删除成功'
+//     })
+//   })
+// })
+
+
+// 查询综合商品总数
 router.get('/comprehensive', function (req, res) {
   const sql = 'select * from comprehensive where isdel = 0'
   connection.query(sql, (err, result) => {
@@ -161,6 +212,19 @@ router.get('/comprehensive', function (req, res) {
     res.send({
       err_code: 0,
       message: result
+    })
+  })
+})
+// 删除综合商品总数
+router.delete('/comprehensive/:id', function (req, res) {
+  const id = req.params.id
+  const sql = 'update comprehensive set isdel = 1 where goods_id = ?'
+  connection.query(sql, id, (err, result) => {
+    if (err) throw console.log('数据获取失败');
+    if (result.affectedRows < 1) return res.send({ err_code: 1, message: '删除的用户失败' });
+    res.send({
+      err_code: 0,
+      message: '删除成功'
     })
   })
 })
