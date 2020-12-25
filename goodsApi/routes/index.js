@@ -118,6 +118,20 @@ router.delete('/allgoodsType/:id', function (req, res) {
   })
 })
 
+// 添加所有商品类型数据
+router.post('/allgoodsType', function (req, res) {
+  const body = req.body
+  const sql = 'insert into allgoods set ?'
+  connection.query(sql, body, (err, result) => {
+    if (err) throw console.log('数据获取失败');
+    if (result.affectedRows < 1) return res.send({ err_code: 1, message: '添加失败' });
+    res.send({
+      err_code: 0,
+      message: '添加成功'
+    })
+  })
+})
+
 // router.get('/classify', function(req, res) {
 //   fs.readFile(path.join(__dirname,'../public/classify.json'),(err,data) =>{
 //     if(err) throw err
