@@ -203,7 +203,24 @@ router.delete('/rotationChart/:id', function (req, res) {
     })
   })
 })
-
+// 添加轮播图
+router.post('/rotationChart', function (req, res) {
+  const body = req.body
+  const sql = 'insert into rotationChart set ?'
+    connection.query(sql,body, (err, result) => {
+      if(err) {
+        res.send({
+          err_code: 0,
+          message: '添加失败'
+        })
+      }else{
+        res.send({
+          err_code: 0,
+          message: '添加成功'
+        })
+      }
+  })
+})
 // router.delete('/users/:id', (req, res) => {
 //   const id = req.params.id
 //   const sql = 'update user set isdel = 1 where id = ?'
