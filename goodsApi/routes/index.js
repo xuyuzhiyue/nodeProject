@@ -259,6 +259,24 @@ router.delete('/comprehensive/:id', function (req, res) {
     })
   })
 })
+// 增加综合商品
+router.post('/comprehensive', function (req, res) {
+  const body = req.body
+  const sql = 'insert into comprehensive set ?'
+    connection.query(sql,body, (err, result) => {
+      if(err) {
+        res.send({
+          err_code: 0,
+          message: '添加失败'
+        })
+      }else{
+        res.send({
+          err_code: 0,
+          message: '添加成功'
+        })
+      }
+  })
+})
 // 综合商品根据hot_number进行排序
 router.get('/comprehensiveOrderBy', function (req, res) {
   const sql = 'select * from comprehensive where isdel = 0 ORDER BY hot_number DESC'
