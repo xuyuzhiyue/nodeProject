@@ -10,6 +10,7 @@ const session = require('express-session')
 var indexRouter = require('./routes/index');
 var goodsDetailRouter = require('./routes/goodsDetail');
 var manageUsers = require('./routes/manageUsers')
+var upload = require('./routes/upload')
 
 var app = express();
 app.use(cors())
@@ -34,6 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use( goodsDetailRouter);
 app.use( manageUsers);
+app.use(upload)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
