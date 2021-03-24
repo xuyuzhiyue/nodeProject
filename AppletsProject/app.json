@@ -15,7 +15,8 @@
     "pages/pay/index",
     "pages/components/SearchInput/SearchInput",
     "pages/components/Tabs/Tabs",
-    "pages/components/UpImg/index"
+    "pages/components/UpImg/index",
+    "pages/chatToRecord/chatToRecord"
   ],
   "window": {
     "backgroundTextStyle": "light",

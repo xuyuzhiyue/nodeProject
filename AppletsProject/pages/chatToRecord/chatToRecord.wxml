@@ -1,0 +1,41 @@
+<!--pages/chatToRecord/chatToRecord.wxml-->
+<view class="chatRecord">
+  <!-- 聊天记录 -->
+  <view wx:for="{{chats.chatInfo}}" wx:key="">
+    <!-- 右边冒泡 -->
+    <view wx:if="{{item.userIdSend==userIdSend}}">
+      <!-- 聊天内容冒泡 -->
+      <view class="RightSend">
+         <view class="RightBox">
+           <view class="RightArrow"></view>
+           {{item.content}}
+         </view>
+        <!-- 头像 -->
+        <image src="{{chats.userHead}}" class="rightImage"></image>
+      </view>
+    </view>
+      <!-- 左边冒泡 -->
+    <view wx:else>
+      <!-- 聊天内容冒泡 -->
+      <view class="LeftSend">   
+      <!-- 头像 -->
+      <image src="{{chats.doctorHead}}" class="LeftImage"></image>
+      <view  class="LeftBox">
+        <view class="LeftArrow"></view>
+        {{item.content}}
+      </view>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 发送消息 -->
+<view class="sendMessage">
+  <input type="text" name='messageValue' value="{{message}}" bindinput="set"></input>
+  <button bindtap="send">发送</button>
+</view>
+
+
+
+
+
+

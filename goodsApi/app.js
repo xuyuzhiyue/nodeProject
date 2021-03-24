@@ -11,6 +11,7 @@ var indexRouter = require('./routes/index');
 var goodsDetailRouter = require('./routes/goodsDetail');
 var manageUsers = require('./routes/manageUsers')
 var upload = require('./routes/upload')
+var order = require('./routes/order')
 
 var app = express();
 app.use(cors())
@@ -36,6 +37,8 @@ app.use('/', indexRouter);
 app.use( goodsDetailRouter);
 app.use( manageUsers);
 app.use(upload)
+app.use( order )
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

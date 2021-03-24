@@ -1,17 +1,17 @@
 <view class="order_box" wx:for="{{cartTranOder}}" wx:key="goods_id">
-   <view class="order_number">订单号：{{item.orderDate}}</view>
+   <view class="order_number">订单号：{{item.orderIden}}</view>
   <view class="order_top">
     <view class="order_image">
-      <image  src="{{item.goods_small_logo}}" mode="widthFix"/>
+      <image  src="{{item.orderImage}}" mode="widthFix"/>
     </view>
-    <view class="order_content">{{item.goods_name}}</view>
+    <view class="order_content">{{item.orderName}}</view>
     <view class="order_price">
-      <view class="price">￥{{item.goods_price}}</view>
-      <view class="num">X{{item.num}}</view>
+      <view class="price">￥{{item.orderPay}}</view>
+      <view class="num">X{{item.orderNumber}}</view>
     </view>
   </view>
   <view class="order_realdy">
-    <view class="order_date">下单时间：{{item.orderDatess}}</view>
-    <view class="order_pagMessage">实付：￥{{item.goods_price}}</view>
+    <view class="order_date">下单时间：{{item.orderTime}}</view>
+    <view class="order_pagMessage">实付：￥{{item.orderPay}}</view>
   </view>
 </view>
