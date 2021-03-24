@@ -2,10 +2,10 @@
    <view class="fb_main">
      <view class="fb_title">问题的分类</view>
      <view class="fb_tips">
-       <text >商品问题</text>
-       <text >退款问题</text>  
-       <text >页面问题</text>
-       <text >其他问题</text>
+       <text bindtap="handleGoods" data-index="商品问题" class="{{Goods?'activeGoods':''}}">商品问题</text>
+       <text bindtap="handleGoods" data-index="退款问题" class="{{Pay?'activeGoods':''}}">退款问题</text>  
+       <text bindtap="handleGoods" data-index="页面问题" class="{{Html?'activeGoods':''}}">页面问题</text>
+       <text bindtap="handleGoods" data-index="其他问题" class="{{Other?'activeGoods':''}}">其他问题</text>
      </view>
      <view class="fb_content">
        <textarea value="{{textVal}}" bindinput="handleTextInput" placeholder="请输入您的问题"></textarea>

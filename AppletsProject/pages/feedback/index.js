@@ -20,7 +20,12 @@ Page({
     // 被选中的图片路径数组
     chooseImage:[],
     // 文本字符串
-    textVal:''
+    textVal:'',
+    // 动态给样式
+    Goods:false,
+    Pay:false,
+    Other:false,
+    Html:false
   },
   // 外网图片路径数组
   UpLoadImge:[],
@@ -80,41 +85,41 @@ Page({
     }
 
     // 显示正在等待图片
-    wx.showLoading({
-      title: '正在上传',
-      mask:true
-    })
+    // wx.showLoading({
+    //   title: '正在上传',
+    //   mask:true
+    // })
     // 需要把图片上传到专门的图片服务器
     if(chooseImage.length != 0 ){
       chooseImage.forEach((v,i) => {
       wx.uploadFile({
           filePath: v,
-          name: 'file',
-          url: 'https://images.ac.cn/home/Index/UploadAction/',
+          name: 'imgfile',
+          url: 'http://127.0.0.1:8800/upload',
           formData:{},
           success:result=>{
-            // console.log(result);
-            // let url = Json.parse(result.data)
-            // this.UpLoadImge.push(url)
+            const data =JSON.parse(result.data)
+            const  imgUrl = data.imgUrl
+            // console.log(data,imgUrl);
 
             //所有的图片都上传完毕了才触发
-            if(i===chooseImage.length-1){
-              wx.hideLoading()
-              // 提交到后台中
-              wx.showToast({
-                title: '已经提交成功',
-              })
-              // console.log('');
-              // 重置页面
-              this.setData({
-                textVal:'',
-                chooseImage:[]
-              })
-              // 返回上一个页面
-              wx.navigateBack({
-                delta:1
-              })
-            }
+            // if(i===chooseImage.length-1){
+            //   wx.hideLoading()
+            //   // 提交到后台中
+            //   wx.showToast({
+            //     title: '已经提交成功',
+            //   })
+            //   // console.log('');
+            //   // 重置页面
+            //   this.setData({
+            //     textVal:'',
+            //     chooseImage:[]
+            //   })
+            //   // 返回上一个页面
+            //   wx.navigateBack({
+            //     delta:1
+            //   })
+            // }
           }
       })
       })
@@ -123,5 +128,34 @@ Page({
         title: '已经提交成功',
       })
     }
+  },
+
+  handleGoods(e){
+    switch (e.currentTarget.dataset.index) {
+      case '商品问题':
+        const Goods = !this.data.Goods;
+        this.setData({
+          Goods
+        });
+          break;
+      case '退款问题':
+        const Pay = !this.data.Pay;
+        this.setData({
+          Pay
+        });
+           break;
+      case '页面问题':
+        const  Html = !this.data.Html;
+        this.setData({
+          Html
+        });
+            break;
+      case '其他问题':
+        const Other = !this.data.Other;
+        this.setData({
+          Other
+        });
+            break;
   }
+  },
 })
