@@ -93,20 +93,22 @@ Page({
   async bindleFloor(e){
     this.Params.goodsType = e.currentTarget.dataset.item.goodsType
     this.Params.cat_type = e.currentTarget.dataset.item.cat_type
-    let itemGoods = await request({
-      url:"/goodsDetail2",
-      method:"POST",
-      data:this.Params
-    })
-    let item = []
-    itemGoods.goods.forEach(v =>{
-      if(v.goodsType === this.Params.goodsType && v.cat_type === this.Params.cat_type ){
-        item.push(v)
-      }
-      return
-    })
+    // let itemGoods = await request({
+    //   url:"/goodsDetail2",
+    //   method:"POST",
+    //   data:this.Params
+    // })
+    // let item = []
+    // itemGoods.goods.forEach((v,index) =>{
+    //   if(v.goodsType === this.Params.goodsType && v.cat_type === this.Params.cat_type ){
+    //     v.index = index
+    //     item.push(v)
+    //   }
+    //   return
+    // })
+    // console.log(item,'item');
       wx.navigateTo({
-        url: '/pages/goods_detail/index?goods_name='+item[0].goods_name+'&goods_price='+item[0].goods_price+'&goods_small_logo='+item[0].goods_small_logo+'&pics_mid2='+item[0].pics_mid2+'&pics_mid3='+item[0].pics_mid3+'&pics_mid1='+item[0].pics_mid1+'&goods_id='+item[0].goods_id+'&goods_introduce='+encodeURIComponent(item[0].goods_introduce)
+        url: '/pages/goods_detail/index?goods_name='+ e.currentTarget.dataset.item.goods_name+'&goods_price='+ e.currentTarget.dataset.item.goods_price+'&shopName='+ e.currentTarget.dataset.item.shopName+'&goods_small_logo='+ e.currentTarget.dataset.item.goods_small_logo+'&pics_mid2='+ e.currentTarget.dataset.item.pics_mid2+'&pics_mid3='+ e.currentTarget.dataset.item.pics_mid3+'&pics_mid1='+ e.currentTarget.dataset.item.pics_mid1+'&goods_id='+ e.currentTarget.dataset.item.goods_id+'&goods_introduce='+encodeURIComponent( e.currentTarget.dataset.item.goods_introduce)
      })
   },
    //标题的点击事件 从子组件传递过来

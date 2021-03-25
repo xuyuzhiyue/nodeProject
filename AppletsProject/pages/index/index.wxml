@@ -103,7 +103,7 @@
              <view class="index_name">{{item.goods_name}}</view>
              <view class="index_row">
                  <view class="index_price">价格:${{item.goods_price}}</view>
-                 <view class="index_pay" bindtap="bindleFloor" data-item="{{item}}">立即购买</view>
+                 <view class="index_pay" bindtap="bindleFloor" data-item="{{item}}" >立即购买</view>
              </view>
            </view>
         </view>         

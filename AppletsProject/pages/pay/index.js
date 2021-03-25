@@ -39,6 +39,13 @@ Page({
 
   // 支付页面
   handlePay(){
+    const {nickName} = wx.getStorageSync('userinfo')
+    if(!nickName){
+      wx.showToast({
+        title: '请先登录',
+      })
+      return
+    } 
     wx.showToast({
       title: '支付成功',
       icon:'none',
@@ -57,7 +64,7 @@ Page({
           cart = cart.filter(v=>v.checked ===false)
           wx.setStorageSync('cart',cart);
           // console.log(cartTranOder,'cartTranOder');
-          const {nickName} = wx.getStorageSync('userinfo')
+
           // 增加订单信息到数据库
           cartTranOder.map((item,index) => {
           wx.request({
@@ -70,7 +77,8 @@ Page({
               orderPay:item.goods_price * 1,
               orderNumber:item.num,
               orderImage:item.pics_mid2,
-              name:nickName || '无'
+              name:nickName,
+              shopName:item.shopName
             },
             success:res=>{
               if(this.data.message === '添加成功'){
