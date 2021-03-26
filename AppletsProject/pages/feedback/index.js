@@ -1,4 +1,5 @@
 // pages/feedback/index.js
+import {request} from "../../pages/request/index"
 Page({
 
   /**
@@ -71,6 +72,12 @@ Page({
   },
   // 提交按钮点击事件
   handleFormSubmit(){
+    let dataListStyle = []
+    if(this.data.Goods === true) dataListStyle.push('商品问题')
+    if(this.data.Pay === true) dataListStyle.push('退款问题')
+    if(this.data.Html === true) dataListStyle.push('页面问题')
+    if(this.data.Other === true) dataListStyle.push('其他问题')
+    // console.log(dataListStyle,'dataListStyle');
     // 获取文本域内容
     const {textVal,chooseImage} = this.data
     // 合法性校验
@@ -100,26 +107,25 @@ Page({
           success:result=>{
             const data =JSON.parse(result.data)
             const  imgUrl = data.imgUrl
-            // console.log(data,imgUrl);
-
-            //所有的图片都上传完毕了才触发
-            // if(i===chooseImage.length-1){
-            //   wx.hideLoading()
-            //   // 提交到后台中
-            //   wx.showToast({
-            //     title: '已经提交成功',
-            //   })
-            //   // console.log('');
-            //   // 重置页面
-            //   this.setData({
-            //     textVal:'',
-            //     chooseImage:[]
-            //   })
-            //   // 返回上一个页面
-            //   wx.navigateBack({
-            //     delta:1
-            //   })
-            // }
+            const {nickName} = wx.getStorageSync('userinfo')
+            wx.request({
+              url: 'http://127.0.0.1:8800/liuyan',
+              method:'POST',
+              data:{
+                imgUrl:'C:\\Users\\fs1688\\Desktop\\node\\nodeProject\\goodsApi\\public\\upload\\'+imgUrl,
+                content:textVal,
+                type:dataListStyle[0]+'、'+dataListStyle[1]+'、'+dataListStyle[2]+'、'+dataListStyle[3],
+                nickName:nickName
+              },
+              success:res=>{
+                // console.log(res,'res');
+                wx.showToast({
+                  title: '提交成功',
+                  icon:'success',
+                  mask: true,
+                })
+              }
+            })
           }
       })
       })

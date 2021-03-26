@@ -17,7 +17,7 @@
     <!-- 历史足迹 -->
     <view class="history_wrap">
         <navigator >
-           <view class="his_num">0</view>  
+           <view class="his_num">{{collectShopNum}}</view>  
            <view class="his_name">收藏店铺</view>
         </navigator>
         <navigator url="/pages/collect/index">

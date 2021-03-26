@@ -35,7 +35,8 @@ Page({
     goods_price:'',
     goods_introduce:'',
     isCollect:false,
-    shopName:''
+    shopName:'',
+    collectdata:'',
   },
   shopName:'',
   goods_name:'',
@@ -163,15 +164,36 @@ Page({
       })
       return
     } 
-    let isCollect = false
+    // let isCollect = false
     // 1.获取缓存中的商品收藏
-    let collect = wx.getStorageSync('collect') || []
+    // let collect = wx.getStorageSync('collect') || []
     // 2.判断改商品是否被收藏过
-    let index = collect.findIndex(v=>v.goods_id === this.GoodsInfo.goods_id)
+    // let index = collect.findIndex(v=>v.goods_id === this.GoodsInfo.goods_id)
+    // 获取已经收藏的信息
+    request({
+      url: '/collect',
+      method:'POST',
+      data:{nickName}
+    }).then(res => {
+      this.setData({
+        collectdata:res
+      })
+      let isCollect = false
+      // 1.获取数据库中的商品收藏
+      let collect = res
+      // 2.判断改商品是否被收藏过
+      let index = collect.findIndex(v=>(v.goods_id)*1 === (this.GoodsInfo.goods_id)*1)
     // 3.当index != -1 表示 已经收藏过
     if(index !== -1){
       // 能找到 已经收藏过了 在数组中删除该商品
       collect.splice(index,1)
+      wx.request({
+        url: `http://127.0.0.1:8800/collects/${nickName}/${this.GoodsInfo.goods_id}`,
+        method:'DELETE',
+        success:res => {
+          // console.log(res,'在数组中删除该商品');
+        }
+      })
       isCollect=false
       wx.showToast({
         title: '取消成功',
@@ -183,6 +205,14 @@ Page({
       this.GoodsInfo.nickName = nickName
       this.GoodsInfo.shopName = this.shopName
       collect.push(this.GoodsInfo)
+      wx.request({
+        url: 'http://127.0.0.1:8800/collects',
+        method:'POST',
+        data:this.GoodsInfo,
+        success:res => {
+          // console.log(res,'没有被收藏');
+        }
+      })
       isCollect=true
       wx.showToast({
         title: '收藏成功',
@@ -190,12 +220,15 @@ Page({
         mask: true,
       })
     }
+
     // 4.把数组存入缓存中
     wx.setStorageSync('collect', collect)
     // 修改data中的数据
     this.setData({
       isCollect
     })
+  })
+
   },
    
   // 点击立即购买
