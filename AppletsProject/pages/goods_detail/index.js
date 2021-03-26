@@ -20,7 +20,7 @@ moment.locale('en', {
     l: "YYYY-MM-DD",
     L: "YYYY-MM-DD HH:mm:ss",
   }
-});
+}); 
 Page({
 
   /**
@@ -66,7 +66,7 @@ Page({
     this.pics_mid2=options.pics_mid2,
     this.pics_mid1=options.pics_mid1,
     this.goods_price=options.goods_price,
-    this.GoodsInfo.goods_name = options.shopName,
+    this.GoodsInfo.shopName = options.shopName,
     this.GoodsInfo.goods_id=options.goods_id,
     this.GoodsInfo.goods_name=options.goods_name,
     this.GoodsInfo.pics_mid3=options.pics_mid3,
@@ -94,21 +94,7 @@ Page({
       goods_introduce:decodeURIComponent(options.goods_introduce).replace(/\.webp/g,'.jpg'),
       isCollect
     })
-
-    // wx.request({
-    //   url: 'https://api-hmugo-web.itheima.net/api/public/v1/goods/detail',
-    //   data:{
-    //     goods_id:53940
-    //   },
-    //   success:res=>{
-    //     console.log(res,'res');
-    //     this.setData({
-    //       goods_introduce:res.data.message.goods_introduce
-    //     })
-    //   }
-    // })
   },
-
   // 点击轮播图 放大预览
   handlePrevewImage(e){
     // console.log('哈哈');
@@ -127,32 +113,70 @@ Page({
 
   // 点击加入购物车
   handleCartAdd(){
-    // console.log('hha');
-    // 1.获取缓存中的购物车 数组
-    let cart = wx.getStorageSync('cart') || []
-    // 2.判断 商品对象是否存在于购物车中
-    let index = cart.findIndex(v => v.goods_id === this.GoodsInfo.goods_id)
-    if(index === -1){
-      // 不存在 第一次添加
-      this.GoodsInfo.shopName = this.shopName
-      this.GoodsInfo.num = 1;
-      this.GoodsInfo.checked = true
-      this.GoodsInfo.orderDate = Date.now()
-      this.GoodsInfo.orderDatess = moment().format('L')
-      cart.push(this.GoodsInfo)
-    }else{
-      // 已经存在于购物车数据 执行 num++
-      cart[index].num ++;
-    }
-    // 把购物车重新添加回缓存中
-    wx.setStorageSync('cart', cart)
-    // 弹窗提示
-    wx.showToast({
-      title: '加入成功',
-      icon:'success',
-      // true 防止用户 手抖 疯狂点击按钮
-      mask:true
+    const {nickName} = wx.getStorageSync('userinfo')
+    if(!nickName){
+      wx.showToast({
+        title: '请先登录',
+      })
+      return
+    } 
+    // 请求获取购物车数据
+    wx.request({
+      url: `http://127.0.0.1:8800/gouwucheget/${nickName}`,
+      method:'post',
+      success:res => {
+        // console.log(res,'请求获取购物车数据');
+        // 1.获取缓存中的购物车 数组
+        // let cart = wx.getStorageSync('cart') || []
+        let cart = res.data.message
+        // 2.判断 商品对象是否存在于购物车中
+        let index = cart.findIndex(v => v.goods_id === ( this.GoodsInfo.goods_id) * 1)
+        if(index === -1){
+          // 不存在 第一次添加
+          this.GoodsInfo.nickName = nickName
+          this.GoodsInfo.shopName = this.shopName
+          this.GoodsInfo.num = 1;
+          this.GoodsInfo.checked = 1
+          this.GoodsInfo.orderDate = Date.now()
+          this.GoodsInfo.orderDatess = moment().format('L')
+          cart.push(this.GoodsInfo)
+          request({
+            url:'/gouwuche',
+            method:'POST',
+            data:this.GoodsInfo
+          }).then(res => {
+            // console.log(res,'不存在第一次添加');
+          })
+        }else{
+          // 已经存在于购物车数据 执行 num++
+          cart[index].num ++;
+          cart[index].orderDate = (this.GoodsInfo.orderDate) * 1
+          cart[index].goods_price = (this.GoodsInfo.goods_price).toString() 
+          cart[index].goods_id = (this.GoodsInfo.goods_id).toString()
+          cart[index].orderDatess = moment().format('L')
+          delete cart[index].id;
+          wx.request({
+            url: `http://127.0.0.1:8800/gouwuche/${nickName}/${this.GoodsInfo.goods_id}/${this.GoodsInfo.goods_name}`,
+            method:'put',
+            data:cart[index],
+            success:res => {
+              // console.log(res,'num++');
+            }
+          })
+        }
+        // 把购物车重新添加回缓存中
+        wx.setStorageSync('cart', cart)
+        // 弹窗提示
+        wx.showToast({
+          title: '加入成功',
+          icon:'success',
+          // true 防止用户 手抖 疯狂点击按钮
+          mask:true
+        })
+      }
     })
+
+    
   },
 
   // 点击商品收藏图标
@@ -188,7 +212,7 @@ Page({
       // 能找到 已经收藏过了 在数组中删除该商品
       collect.splice(index,1)
       wx.request({
-        url: `http://127.0.0.1:8800/collects/${nickName}/${this.GoodsInfo.goods_id}`,
+        url: `http://127.0.0.1:8800/collects/${nickName}/${this.GoodsInfo.goods_id}/${this.GoodsInfo.goods_name}`,
         method:'DELETE',
         success:res => {
           // console.log(res,'在数组中删除该商品');
@@ -243,7 +267,7 @@ Page({
     }
     this.GoodsInfo.shopName = this.shopName
     this.GoodsInfo.num = 1;
-    this.GoodsInfo.checked = true
+    this.GoodsInfo.checked = 1
     this.GoodsInfo.orderDate = Date.now()
     this.GoodsInfo.orderDatess = moment().format('L')
     // let cart = wx.getStorageSync('cart') || []

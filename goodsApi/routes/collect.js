@@ -44,10 +44,11 @@ router.post('/collect',(req,res)=>{
 })
 
 // 删除收藏
-router.delete('/collects/:nickName/:goods_id', function (req, res) {
+router.delete('/collects/:nickName/:goods_id/:goods_name', function (req, res) {
   const nickName = req.params.nickName
   const goods_id = req.params.goods_id
-const sql = `delete from collectshop where nickName= ${nickName} and goods_id= ${goods_id}`
+  const goods_name = req.params.goods_name
+const sql = `delete from collectshop where nickName= '${nickName}' and goods_id= ${goods_id} and goods_name = '${goods_name}' `
 connection.query(sql, (err, result) => {
   if (err) throw console.log('数据获取失败');
   if (result.affectedRows < 1) return res.send({ err_code: 1, message: '删除的收藏失败' });

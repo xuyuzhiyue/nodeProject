@@ -31,7 +31,7 @@ router.post('/ordercheck',(req,res)=>{
 
   //   获取增加订单信息
  router.post('/order', (req, res) => {
-  //  console.log(req,'req');
+  //  console.log(req.body,'req');
    const body = req.body
   const sql = 'insert into orders set ?'
   connection.query(sql, body, (err, result) => {

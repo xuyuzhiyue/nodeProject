@@ -25,6 +25,13 @@
 
 import { getSetting,chooseAddress,openSetting,showModal,showToast} from "../utils/asyncWx"
 import regeneratorRuntime from "../../pages/lib/runtime/runtime.js"
+const moment = require('../../pages/moment/moment');
+moment.locale('en', {
+  longDateFormat: {
+    l: "YYYY-MM-DD",
+    L: "YYYY-MM-DD HH:mm:ss",
+  }
+}); 
 Page({
 
   /**
@@ -40,10 +47,20 @@ Page({
   onShow(){
     // 1.获取缓存中的收获信息地址
     const address = wx.getStorageSync('address')
+    
     // 获取缓存中的购物数据
-    const cart = wx.getStorageSync('cart') || []
+    // const cart = wx.getStorageSync('cart') || []
+    // 请求购物车的数据
+    const {nickName} = wx.getStorageSync('userinfo')
+    wx.request({
+      url: `http://127.0.0.1:8800/gouwucheget/${nickName}`,
+      method:'post',
+      success:res => {
+        this.setCart(res.data.message)
+      }
+    })
     this.setData({address})
-    this.setCart(cart)
+    // this.setCart(cart)
   },
   // 点击收货地址
     async handleChooseAddress(){
@@ -134,6 +151,7 @@ Page({
       allChecked
     });
     wx.setStorageSync('cart', cart)
+    wx.setStorageSync('gouwuchecart', cart)
   },
   
 
@@ -200,9 +218,43 @@ Page({
       await showToast({title:"请选择商品"})
       return
     }
-    // 3.跳到支付页面
-    wx.navigateTo({
-      url: '/pages/pay/index',
+
+    // 生成订单信息
+    const gouwuchecart = wx.getStorageSync('gouwuchecart') || []
+    const datagouwuche = gouwuchecart.filter(item => item.checked === true || item.checked === 1)
+    let orderName = []
+    let shopName = []
+    let orderImage = 'https://dss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3511062587,2622156531&fm=26&gp=0.jpg'
+    gouwuchecart.map(item => {
+      orderName.push(item.goods_name)
+      shopName.push(item.shopName)
     })
-  }
+    // 生成订单
+    const {nickName} = wx.getStorageSync('userinfo')
+    wx.request({
+      url: 'http://127.0.0.1:8800/order',
+      method:'post',
+      data:{
+        name:nickName,
+        orderImage:orderImage,
+        shopName:shopName.toString(),
+        orderName:orderName.toString(),
+        orderPay:this.data.totalPrice,
+        orderNumber:this.data.totalNum,
+        orderIden:(Date.now()).toString(),
+        orderTime:moment().format('L')},
+      success:res => {
+        wx.showToast({
+          title: '支付成功',
+          icon:'success'
+        })
+        // console.log(res,'生成订单');
+      }
+    })
+        // 3.跳到支付页面
+    wx.navigateTo({
+      url: '/pages/order/index',
+    })
+  },
+
 })

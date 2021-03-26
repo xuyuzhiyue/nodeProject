@@ -14,6 +14,7 @@ var upload = require('./routes/upload')
 var order = require('./routes/order')
 var collect = require('./routes/collect')
 var liuyan = require('./routes/liuyan')
+var gouwuche = require('./routes/gouwuche')
 
 var app = express();
 app.use(cors())
@@ -42,6 +43,7 @@ app.use(upload)
 app.use( order )
 app.use(collect)
 app.use(liuyan)
+app.use(gouwuche)
 
 
 // catch 404 and forward to error handler
