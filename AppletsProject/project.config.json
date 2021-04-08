@@ -126,6 +126,12 @@
         {
           "name": "订单页面",
           "pathName": "pages/order/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "收获地址",
+          "pathName": "pages/address/index",
           "scene": null
         }
       ]

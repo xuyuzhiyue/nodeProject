@@ -10,6 +10,31 @@
   flex: 3;
   text-align: right;
 }
+.user_info_row .caozuo{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
 .quedingColor{
   color: darkred;
+  margin-right: 10rpx;
+}
+.section{
+  margin-left: 20rpx;
+}
+.section .inputName{
+  border-bottom: 1px solid salmon;
+  margin: 20rpx;
+}
+.section .picker{
+  border-bottom: 1px solid salmon;
+  margin: 20rpx;
+}
+.section .inputDetailAddress{
+  border-bottom: 1px solid salmon;
+  margin: 20rpx;
+}
+.section .inputNumber{
+  border-bottom: 1px solid salmon;
+  margin: 20rpx;
 }

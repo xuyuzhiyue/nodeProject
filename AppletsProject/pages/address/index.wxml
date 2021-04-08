@@ -1,5 +1,26 @@
 <!--pages/address/index.wxml-->
 <view>
+  <view class="section">
+    <view class="section__title">省市区选择器</view>
+    <picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
+      <view class="picker" >
+        当前选择：{{region[0]}}，{{region[1]}}，{{region[2]}}
+      </view>
+    </picker>
+    <view class="inputName">
+      <view>联系人:</view>
+      <input value="{{inputName}}" placeholder="请输入联系人" bindinput="handleName"/>
+    </view>
+    <view class="inputDetailAddress">
+      <view>详细地址:</view>
+      <input value="{{inputVal}}" placeholder="请输入详细地址" bindinput="handleInput"/>
+    </view>
+    <view class="inputNumber">
+      <view>联系方式:</view>
+      <input value="{{inputNumber}}" type="number" placeholder="请输入联系方式" bindblur="handleNumber" maxlength="11" />
+    </view>
+  </view>
+  <button bindtap="btnAdd">增加地址</button>
   <!-- 当收获地址 存在 详细的信息 -->
   <view class="user_info_row">
      <view class="user_info">
@@ -8,7 +29,10 @@
      </view>
      <view class="user_phone">
        <view>{{address[0].telNumber}}</view>
-       <view class="quedingColor" bindtap="btnQuery" data-name="小戴">确定</view>
+       <view class="caozuo">
+        <view class="quedingColor" bindtap="btnQuery" data-name="小戴">确定</view>
+       <view class="quedingColor" bindtap="btnDelete" data-name="小戴">删除</view>
+       </view>
      </view>
   </view>
 </view>

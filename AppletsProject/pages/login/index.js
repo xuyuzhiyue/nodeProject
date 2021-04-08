@@ -28,7 +28,11 @@ Page({
         wx.navigateBack({
           delta:1
         })
-        console.log(res)
+            // 跳回上一个页面
+        wx.navigateBack({
+          delta:1
+        })
+        // console.log(res)
       },
       fail: res => {
         //拒绝授权
