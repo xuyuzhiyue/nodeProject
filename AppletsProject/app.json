@@ -16,7 +16,8 @@
     "pages/components/SearchInput/SearchInput",
     "pages/components/Tabs/Tabs",
     "pages/components/UpImg/index",
-    "pages/chatToRecord/chatToRecord"
+    "pages/chatToRecord/chatToRecord",
+    "pages/address/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

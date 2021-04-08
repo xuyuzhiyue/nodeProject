@@ -11,7 +11,9 @@ Page({
     userinfo:{},
     // 被收藏的商品数量
     collectNum:0,
-    collectShopNum:0
+    collectShopNum:0,
+    // 我的足迹
+    footprint:0
   },
   onShow(){
     
@@ -23,6 +25,7 @@ Page({
       })
       return
     } 
+    console.log();
     // const userinfo = wx.getStorageSync('userinfo')
     // const collect = wx.getStorageSync('collect') || []
     // this.setData({
@@ -40,6 +43,20 @@ Page({
         userinfo:userinfo,
         collectNum:res.length,
         collectShopNum:this.quchong(res)
+      })
+    })
+
+    this.getGouwuche()
+  },
+  // 获取购物车数据，当我的足迹
+  getGouwuche(){
+    const {nickName} = wx.getStorageSync('userinfo')
+    request({
+      url: `/gouwucheget/${nickName}`,
+      method:'POST'
+    }).then(res => {
+      this.setData({
+        footprint:res.length
       })
     })
   },
@@ -66,4 +83,10 @@ Page({
       });
       return hash.length;
   },
+  // 跳转到收获地址
+  address(){
+    wx.navigateTo({
+      url: '/pages/address/index',
+      })
+  }
 })

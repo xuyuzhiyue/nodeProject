@@ -35,10 +35,10 @@
     </view> -->
 
     <view class="index_area">
-       <navigator class="index_row" open-type="switchTab" url="/pages/category/index">
+       <!-- <navigator class="index_row" open-type="switchTab" url="/pages/category/index">
           <text class="iconfont icon-baokuan"></text>
           <view class="index_name">今日火爆</view>
-       </navigator>
+       </navigator> -->
        <navigator class="index_row" url="/pages/goods_list/index?goodsType=体育用品&cat_type=体育">
           <text class="iconfont icon-jingxi"></text>
           <view class="index_name">体育区</view>
@@ -47,22 +47,22 @@
           <text class="iconfont icon-youhui"></text>
           <view class="index_name">卡通手办</view>
        </navigator>
-       <navigator class="index_row" open-type="switchTab" url="/pages/category/index">
+       <!-- <navigator class="index_row" open-type="switchTab" url="/pages/category/index">
           <text class="iconfont icon-pifajia"></text>
           <view class="index_name">批发</view>
-       </navigator>
-       <navigator class="index_row" open-type="switchTab" url="/pages/category/index">
+       </navigator> -->
+       <!-- <navigator class="index_row" open-type="switchTab" url="/pages/category/index">
           <text class="iconfont icon-bangdan"></text>
           <view class="index_name">榜单</view>
-       </navigator>
+       </navigator> -->
        <navigator class="index_row" open-type="switchTab" url="/pages/category/index">
           <text class="iconfont icon-shuma-pailide"></text>
           <view class="index_name">数码家电</view>
        </navigator>
-       <navigator class="index_row"  open-type="switchTab" url="/pages/category/index">
+       <!-- <navigator class="index_row"  open-type="switchTab" url="/pages/category/index">
           <text class="iconfont icon-huochepiao"></text>
           <view class="index_name">车票</view>
-       </navigator>
+       </navigator> -->
        <navigator class="index_row" url="/pages/goods_list/index?goodsType=中国图书&cat_type=图书">
           <text class="iconfont icon-tushuqikan"></text>
           <view class="index_name">图书</view>

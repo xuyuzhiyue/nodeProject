@@ -10,9 +10,13 @@
   <view wx:else class="user_info_row">
      <view class="user_info">
       <view>{{address.userName}}</view>
-      <view>{{address.all}}</view>
+      <view>{{address.all}}</view> 
      </view>
-     <view class="user_phone">{{address.telNumber}}</view>
+     <!-- <view class="user_phone">{{address.telNumber}}</view> -->
+     <view class="user_phone">
+      <view >{{address.telNumber}}</view>
+      <navigator class="updateColor"  url="/pages/address/index">修改</navigator> 
+     </view>
   </view>
     
 </view>

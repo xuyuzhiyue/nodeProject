@@ -1,0 +1,14 @@
+<!--pages/address/index.wxml-->
+<view>
+  <!-- 当收获地址 存在 详细的信息 -->
+  <view class="user_info_row">
+     <view class="user_info">
+      <view>{{address[0].userName}}</view>
+      <view>{{address[0].all}}</view> 
+     </view>
+     <view class="user_phone">
+       <view>{{address[0].telNumber}}</view>
+       <view class="quedingColor" bindtap="btnQuery" data-name="小戴">确定</view>
+     </view>
+  </view>
+</view>

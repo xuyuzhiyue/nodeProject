@@ -19,6 +19,9 @@ page {
   flex: 3;
   text-align: right;
 }
+.user_phone .updateColor{
+  color: firebrick;
+}
 .cart_content .cart_title {
   padding: 20rpx;
   font-size: 36rpx;

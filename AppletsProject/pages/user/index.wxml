@@ -25,11 +25,11 @@
            <view class="his_name">收藏商品</view>
         </navigator>
         <navigator >
-           <view class="his_num">0</view>  
+           <view class="his_num">{{collectNum}}</view>  
            <view class="his_name">关注的商品</view>
         </navigator>
         <navigator >
-           <view class="his_num">0</view>  
+           <view class="his_num">{{footprint}}</view>  
            <view class="his_name">我的足迹</view>
         </navigator>
     </view>
@@ -57,7 +57,7 @@
     </view>
 
     <!-- 收货地址管理 -->
-    <view class="address_wrap">
+    <view class="address_wrap" bindtap="address">
       收货地址管理
     </view>
     <!-- 应用信息相关 -->
