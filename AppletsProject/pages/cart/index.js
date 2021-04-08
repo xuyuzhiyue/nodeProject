@@ -26,6 +26,8 @@
 import { getSetting,chooseAddress,openSetting,showModal,showToast} from "../utils/asyncWx"
 import regeneratorRuntime from "../../pages/lib/runtime/runtime.js"
 const moment = require('../../pages/moment/moment');
+// /引用发送请求的方法
+import {request} from "../../pages/request/index"
 moment.locale('en', {
   longDateFormat: {
     l: "YYYY-MM-DD",
@@ -45,6 +47,9 @@ Page({
     totalNum:0
   },
   onShow(){
+    this.getGouwucheData()
+  },
+  getGouwucheData(){
     // 1.获取缓存中的收获信息地址
     const address = wx.getStorageSync('address')
     
@@ -170,7 +175,6 @@ Page({
    
   // 商品数量的编辑功能
   async handleItemNumEdit(e){
-
     // 1.获取传递过来的参数
     const {operation,id} = e.currentTarget.dataset
     // console.log(operation,id);
@@ -195,6 +199,13 @@ Page({
       // })
       const res = await showModal({content:"您是否删除此商品"})
       if(res.confirm){
+      // 从数据库中删除
+      request({ 
+        url:`/gouwuche/${cart[index].nickName}/${cart[index].goods_id}/${cart[index].goods_name}`,
+        method:'delete'
+      }).then(res => {
+        // console.log(res,'删除成功');
+      })
         cart.splice(index,1)
         this.setCart(cart)
       }
@@ -202,8 +213,24 @@ Page({
       // 进行修改数量
       cart[index].num += operation;
       // 设置回缓存中和data中
-      this.setCart(cart);
+      this.setCart(cart); 
+      cart[index].orderDate = (cart[index].orderDate) * 1
+      cart[index].goods_price = (cart[index].goods_price).toString() 
+      cart[index].goods_id = (cart[index].goods_id).toString()
+      cart[index].orderDatess = moment().format('L')
+      delete cart[index].id;
+      // console.log( cart[index],'进行修改数量');
+      // 修改数据库里的购物车数据
+      request({ 
+        url:`/gouwuche/${cart[index].nickName}/${cart[index].goods_id}/${cart[index].goods_name}`,
+        method:'put',
+        data: cart[index]
+      }).then(res => {
+        // console.log(res,'添加成功');
+      })
+
     }
+    this.getGouwucheData()
   },
 
   // 结算

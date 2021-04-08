@@ -28,10 +28,10 @@ router.post('/gouwucheget/:nickName',(req,res)=>{
     })
   })
 
-//   //   获取增加收藏
+//   //   获取增加购物车
  router.post('/gouwuche', (req, res) => {
-  //  console.log(req,'req');
    const body = req.body
+   console.log(body,'req');
   const sql = 'insert into gouwuche set ?'
   connection.query(sql, body, (err, result) => {
     if (err) throw console.log('数据获取失败');
@@ -62,18 +62,19 @@ router.put('/gouwuche/:nickName/:goods_id/:goods_name', (req, res) => {
   })
   
 // 删除收藏
-// router.delete('/collects/:nickName/:goods_id/:goods_name', function (req, res) {
-//   const nickName = req.params.nickName
-//   const goods_id = req.params.goods_id
-//   const goods_name = req.params.goods_name
-// const sql = `delete from collectshop where nickName= '${nickName}' and goods_id= ${goods_id} and goods_name = '${goods_name}' `
-// connection.query(sql, (err, result) => {
-//   if (err) throw console.log('数据获取失败');
-//   if (result.affectedRows < 1) return res.send({ err_code: 1, message: '删除的收藏失败' });
-//   res.send({
-//     err_code: 0,
-//     message: '删除成功'
-//   })
-// })
-// })
+router.delete('/gouwuche/:nickName/:goods_id/:goods_name', function (req, res) {
+  const nickName = req.params.nickName
+  const goods_id = req.params.goods_id
+  const goods_name = req.params.goods_name
+  // console.log(nickName,goods_id,goods_name,'删除收藏');
+const sql = `delete from gouwuche where nickName= '${nickName}' and goods_id= ${goods_id} and goods_name = '${goods_name}' `
+connection.query(sql, (err, result) => {
+  if (err) throw console.log('数据获取失败');
+  if (result.affectedRows < 1) return res.send({ err_code: 1, message: '删除的收藏失败' });
+  res.send({
+    err_code: 0,
+    message: '删除成功'
+  })
+})
+})
 module.exports = router;
