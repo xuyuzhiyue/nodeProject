@@ -44,11 +44,40 @@ Page({
     cart:[],
     allChecked:false,
     totalPrice:0,
-    totalNum:0
+    totalNum:0,
+    disabled:false
   },
+  // onLoad(){
+    // const {nickName} = wx.getStorageSync('userinfo')
+    // if(!nickName){
+    //   wx.showToast({
+    //     title: '请先登录',
+    //     icon:'fail'
+    //   })
+    //   this.setData({disabled:true})
+    //   return
+    // }
+  //   this.getGouwucheData()
+  // },
   onShow(){
+    const {nickName} = wx.getStorageSync('userinfo')
+    if(!nickName){
+      wx.showToast({
+        title: '请先登录',
+        icon:'fail'
+      })
+      this.setData({disabled:true})
+      return
+    }
+    this.setData({disabled:false})
     this.getGouwucheData()
   },
+  // onLoad(){
+  //   const {nickName} = wx.getStorageSync('userinfo')
+  //   if(nickName){
+  //     this.setData({disabled:false})
+  //   }
+  // },
   getGouwucheData(){
     // 1.获取缓存中的收获信息地址
     const address = wx.getStorageSync('address')
@@ -100,7 +129,7 @@ Page({
       // 1.获取 权限状态
       const res1 = await getSetting()
       const scpoeAddress = res1.authSetting["Scope.address"];
-      
+
       // 2.判断 权限状态
       if(scpoeAddress === false){
         // 以前拒绝过授予权限 先诱导用户打开授权页面
@@ -111,6 +140,22 @@ Page({
       address.all = address.provinceName+address.cityName+address.countyName+address.detailInfo
       // 存入到缓存中
       wx.setStorageSync('address', address)
+      const {nickName} = wx.getStorageSync('userinfo')
+      console.log(nickName,'nickName');
+      // 将地址保存address表的数据中
+      wx.request({
+        url: `http://127.0.0.1:8800/addressAdd`,
+        method:'post',
+        data:{
+          address:address.all,
+          number:address.telNumber,
+          nickName:nickName,
+          name:address.userName
+        },
+        success:res => {
+          // console.log(res,'将地址保存address表的数据中');
+        }
+      })
     }catch(err){
       console.log(err);
     }

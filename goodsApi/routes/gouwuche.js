@@ -61,7 +61,7 @@ router.put('/gouwuche/:nickName/:goods_id/:goods_name', (req, res) => {
     })
   })
   
-// 删除收藏
+// 删除购物车
 router.delete('/gouwuche/:nickName/:goods_id/:goods_name', function (req, res) {
   const nickName = req.params.nickName
   const goods_id = req.params.goods_id

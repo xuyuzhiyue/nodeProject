@@ -3,7 +3,7 @@
   <!-- 当收获地址 不存在 按钮显示 -->
   <view class="address_btn" wx:if="{{!address.userName}}">
   <!-- plain背景颜色 -->
-    <button bindtap="handleChooseAddress" type="primary" plain >获取收获地址</button>
+    <button bindtap="handleChooseAddress" type="primary" disabled="{{disabled}}" plain>获取收获地址</button>
   </view>
 
   <!-- 当收获地址 存在 详细的信息 -->

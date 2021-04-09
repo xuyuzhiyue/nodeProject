@@ -12,7 +12,16 @@ Page({
     inputName:'',
     mobileFormat:false
   },
-  onShow(){
+  // onShow(){
+  //   const address = wx.getStorageSync('address')
+  //   if(!address){
+  //     wx.showToast({
+  //       title: '请先获取地址信息',
+  //     })
+  //     return
+  //   } 
+  // }, 
+  onLoad(){
     const address = wx.getStorageSync('address')
     if(!address){
       wx.showToast({
@@ -20,31 +29,47 @@ Page({
       })
       return
     } 
-  }, 
+    this.getAddress()
+  },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    const address = wx.getStorageSync('address')
-    // console.log(address,'address');
-    this.setData({
-      address:[address]
-    })
-  },
 
   // 点击跳回上一页
   btnQuery(e){
-    console.log(e,'点击跳回上一页');
+    // console.log(e,'点击跳回上一页');
+    const address = {
+      userName:e.currentTarget.dataset.name,
+      telNumber:e.currentTarget.dataset.number,
+      all:e.currentTarget.dataset.address,
+      id:e.currentTarget.dataset.id,
+    }
+    wx.setStorageSync('address', address)
     wx.navigateBack({
       delta:1
     })
   },
   // 点击删除
   btnDelete(e){
-    console.log(e,'点击删除');
+    // console.log(e,'点击删除');
+    const id = e.currentTarget.dataset.id
+    const {nickName} = wx.getStorageSync('userinfo')
+    wx.request({
+      url: `http://127.0.0.1:8800/address/${nickName}/${id}`,
+      method:'delete',
+      success:res => {
+      //  console.log(res,'点击删除');
+      wx.showToast({
+        title: '删除成功',
+        icon: 'success',
+        duration: 1500
+      })
+      this.getAddress()
+      }
+    })
   },
   bindRegionChange: function (e) {  // picker值发生改变都会触发该方法
-    console.log('picker发送选择改变，携带值为', e,e.detail.value)
+    // console.log('picker发送选择改变，携带值为', e,e.detail.value)
     this.setData({
       region: e.detail.value
     })
@@ -102,15 +127,53 @@ Page({
     const inputName = e.detail.value
     this.setData({inputName})
   },
-  // 点击确定增加
+  // 点击增加地址
   btnAdd(){
+    const {nickName} = wx.getStorageSync('userinfo')
+    if(!nickName){
+      wx.showToast({
+        title: '请先登录',
+        icon:'fail'
+      })
+      return
+    }
+    const addressa = wx.getStorageSync('address')
+    if(!addressa){
+      wx.showToast({
+        title: '请先获取地址信息',
+      })
+      return
+    } 
     const {inputVal} = this.data
     const {inputName} = this.data
     const {mobileFormat} = this.data
     const {mobile} = this.data
     const {region} = this.data
+    const address = region[0] + region[1] +region[2]+inputVal
+    // const {nickName} = wx.getStorageSync('userinfo')
+    const data  = {
+      address:address,
+      number:mobile,
+      name:inputName,
+      nickName
+    }
+    // console.log(data,'点击增加地址');
     if(inputName !== 0 && inputVal !== 0 && mobileFormat !== false){
-      console.log('增加成功');
+      // console.log('增加成功');
+      wx.request({
+        url: `http://127.0.0.1:8800/addressAdd`,
+        method:'post',
+        data:data,
+        success:res => {
+        //  console.log(res,'增加成功');
+          wx.showToast({
+            title: '增加成功',
+            icon: 'success',
+            duration: 1500
+          })
+        this.getAddress()
+        }
+      })
     }else{
       wx.showToast({
         title: '请重新输入！',
@@ -118,6 +181,20 @@ Page({
         duration: 1500
       })
     }
+  },
+  // 获取收获地址信息
+  getAddress(){
+    const {nickName} = wx.getStorageSync('userinfo')
+    wx.request({
+      url: `http://127.0.0.1:8800/address/${nickName}`,
+      method:'post',
+      success:res => {
+      //  console.log(res,'获取收获地址信息');
+       this.setData({
+         address:res.data.message
+       })
+      }
+    })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -129,9 +206,6 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-
-  },
 
   /**
    * 生命周期函数--监听页面隐藏

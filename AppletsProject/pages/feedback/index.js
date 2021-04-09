@@ -72,6 +72,15 @@ Page({
   },
   // 提交按钮点击事件
   handleFormSubmit(){
+    const {nickName} = wx.getStorageSync('userinfo')
+    if(!nickName){
+      wx.showToast({
+        title: '请先登录',
+        icon:'fail'
+      })
+      this.setData({disabled:true})
+      return
+    }
     let dataListStyle = []
     if(this.data.Goods === true) dataListStyle.push('商品问题')
     if(this.data.Pay === true) dataListStyle.push('退款问题')

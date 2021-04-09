@@ -22,16 +22,16 @@
   </view>
   <button bindtap="btnAdd">增加地址</button>
   <!-- 当收获地址 存在 详细的信息 -->
-  <view class="user_info_row">
+  <view class="user_info_row" wx:for="{{address}}" wx:key="id">
      <view class="user_info">
-      <view>{{address[0].userName}}</view>
-      <view>{{address[0].all}}</view> 
+      <view>{{item.name}}</view>
+      <view>{{item.address}}</view> 
      </view>
      <view class="user_phone">
-       <view>{{address[0].telNumber}}</view>
+       <view>{{item.number}}</view>
        <view class="caozuo">
-        <view class="quedingColor" bindtap="btnQuery" data-name="小戴">确定</view>
-       <view class="quedingColor" bindtap="btnDelete" data-name="小戴">删除</view>
+        <view class="quedingColor" bindtap="btnQuery" data-number="{{item.number}}" data-name="{{item.name}}" data-address="{{item.address}}" data-id="{{item.id}}">确定</view>
+       <view class="quedingColor" bindtap="btnDelete" data-id="{{item.id}}">删除</view>
        </view>
      </view>
   </view>
