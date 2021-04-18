@@ -11,6 +11,7 @@ var indexRouter = require('./routes/index');
 var goodsDetailRouter = require('./routes/goodsDetail');
 var manageUsers = require('./routes/manageUsers')
 var upload = require('./routes/upload')
+var uploadImage = require('./routes/uploadImage')
 var order = require('./routes/order')
 var collect = require('./routes/collect')
 var liuyan = require('./routes/liuyan')
@@ -41,6 +42,7 @@ app.use('/', indexRouter);
 app.use( goodsDetailRouter);
 app.use( manageUsers);
 app.use(upload)
+app.use(uploadImage)
 app.use( order )
 app.use(collect)
 app.use(liuyan)

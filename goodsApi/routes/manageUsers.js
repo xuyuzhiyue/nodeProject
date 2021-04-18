@@ -15,7 +15,8 @@ let connection = mysql.createConnection({
 
   // 根据name和password获取管理员信息,用于管理后台数据
   router.get('/manageUsers', (req, res) => {
-    const sql = 'select * from manageuser where isdel = 0'
+    // const sql = 'select * from manageuser where isdel = 0'
+    const sql = 'select * from manageuser'
     connection.query(sql, (err, result) => {
       // console.log(res);
       if (err) throw res.send({ err_code: 1, message: '该管理员不存在' });
@@ -25,6 +26,22 @@ let connection = mysql.createConnection({
       })
     })
   })
+
+  // 注销账户
+  router.put('/manageUsers/:id', (req, res) => {
+    const id = req.params.id
+    const body = req.body
+    const sql = 'update manageuser set ? where id = ?'
+    connection.query(sql, [body,id],(err, result) => {
+      if (err) throw console.log('数据获取失败');
+      if (result.affectedRows < 1) return res.send({ err_code: 1, message: '编辑的用户失败' });
+      res.send({
+        err_code: 0,
+        message: '编辑成功'
+      })
+    })
+  })
+
 
 // 根据name和password获取管理员信息,用于管理后台数据
   router.post('/manageUsers',(req, res) => {
