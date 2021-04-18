@@ -15,18 +15,17 @@ let connection = mysql.createConnection({
 })
 
 
-// //   获取根据登录的用户名name所有的留言信息
-// router.post('/liuyan',(req,res)=>{
-//   const nickName = req.body.nickName
-//     const sql = `select * from liuyan where isdel = 0 and nickName = ${nickName}`
-//     connection.query(sql,(err, result) => {
-//       if (err) throw res.send({ err_code: 1, message: '该数据不存在' });
-//       res.send({
-//         err_code: 0,
-//         message: result
-//       })
-//     })
-//   })
+// //   获取所有的留言信息
+router.get('/liuyan',(req,res)=>{
+    const sql = `select * from liuyan`
+    connection.query(sql,(err, result) => {
+      if (err) throw res.send({ err_code: 1, message: '该数据不存在' });
+      res.send({
+        err_code: 0,
+        message: result
+      })
+    })
+  })
 
   //   获取增加留言
  router.post('/liuyan', (req, res) => {
@@ -57,4 +56,19 @@ let connection = mysql.createConnection({
 //   })
 // })
 // })
+
+// 删除留言
+router.put('/liuyan/:id', (req, res) => {
+  const id = req.params.id
+  const body = req.body
+  const sql = 'update liuyan set ? where id = ?'
+  connection.query(sql, [body,id],(err, result) => {
+    if (err) throw console.log('数据获取失败');
+    if (result.affectedRows < 1) return res.send({ err_code: 1, message: '编辑的用户失败' });
+    res.send({
+      err_code: 0,
+      message: '删除成功'
+    })
+  })
+})
 module.exports = router;

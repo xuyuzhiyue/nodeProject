@@ -106,12 +106,13 @@ Page({
     //   mask:true
     // })
     // 需要把图片上传到专门的图片服务器
+    // imgUrl:'C:\\Users\\fs1688\\Desktop\\node\\nodeProject\\goodsApi\\public\\upload\\'+imgUrl,
     if(chooseImage.length != 0 ){
       chooseImage.forEach((v,i) => {
       wx.uploadFile({
           filePath: v,
           name: 'imgfile',
-          url: 'http://127.0.0.1:8800/upload',
+          url: 'http://127.0.0.1:8800/uploadImage',
           formData:{},
           success:result=>{
             const data =JSON.parse(result.data)
@@ -121,7 +122,7 @@ Page({
               url: 'http://127.0.0.1:8800/liuyan',
               method:'POST',
               data:{
-                imgUrl:'C:\\Users\\fs1688\\Desktop\\node\\nodeProject\\goodsApi\\public\\upload\\'+imgUrl,
+                imgUrl:imgUrl,
                 content:textVal,
                 type:dataListStyle[0]+'、'+dataListStyle[1]+'、'+dataListStyle[2]+'、'+dataListStyle[3],
                 nickName:nickName
