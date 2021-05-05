@@ -42,6 +42,22 @@ router.get('/liuyan',(req,res)=>{
   })
 })
 
+
+ //   获取用户名字信息进行搜索
+ router.post('/liuyanSerach',(req,res)=>{
+  const nickName = req.body.nickName
+  const sql = `select * from liuyan where nickName = '${nickName}'`
+  console.log(sql);
+  connection.query(sql,(err, result) => {
+    if (err) throw res.send({ err_code: 1, message: '该数据不存在' });
+    res.send({
+      err_code: 0,
+      message: result
+    })
+  })
+}) 
+
+
 // 删除收藏
 // router.delete('/collects/:nickName/:goods_id', function (req, res) {
 //   const nickName = req.params.nickName

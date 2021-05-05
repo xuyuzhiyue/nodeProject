@@ -14,6 +14,17 @@ let connection = mysql.createConnection({
     database: 'mydb'
 })
 
+//   获取所有的订单信息
+router.get('/order',(req,res)=>{
+    const sql = `select * from orders `
+    connection.query(sql,(err, result) => {
+      if (err) throw res.send({ err_code: 1, message: '该数据不存在' });
+      res.send({
+        err_code: 0,
+        message: result
+      })
+    })
+  })
 
 //   获取根据登录的用户名name所有的订单信息
 router.post('/ordercheck',(req,res)=>{

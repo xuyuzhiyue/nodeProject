@@ -221,6 +221,22 @@ router.post('/rotationChart', function (req, res) {
       }
   })
 })
+
+ //   修改轮播图
+ router.put('/rotationChart/:goods_id', (req, res) => {
+  const goods_id = req.params.goods_id
+  const body = req.body
+  console.log(body,goods_id);
+  const sql = 'update rotationChart set ? where goods_id = ?'
+  connection.query(sql,[body,goods_id],(err, result) => {
+    if (err) throw console.log('数据获取失败');
+    if (result.affectedRows < 1) return res.send({ err_code: 1, message: '编辑的用户失败' });
+    res.send({
+      err_code: 0,
+      message: '编辑成功'
+    })
+  })
+})
 // router.delete('/users/:id', (req, res) => {
 //   const id = req.params.id
 //   const sql = 'update user set isdel = 1 where id = ?'
@@ -285,6 +301,22 @@ router.get('/comprehensiveOrderBy', function (req, res) {
     res.send({
       err_code: 0,
       message: result
+    })
+  })
+})
+
+ //   修改综合商品
+ router.put('/comprehensive/:goods_id', (req, res) => {
+  const goods_id = req.params.goods_id
+  const body = req.body
+  console.log(body,goods_id);
+  const sql = 'update comprehensive set ? where goods_id = ?'
+  connection.query(sql,[body,goods_id],(err, result) => {
+    if (err) throw console.log('数据获取失败');
+    if (result.affectedRows < 1) return res.send({ err_code: 1, message: '编辑的用户失败' });
+    res.send({
+      err_code: 0,
+      message: '编辑成功'
     })
   })
 })

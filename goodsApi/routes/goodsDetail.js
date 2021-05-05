@@ -54,6 +54,23 @@ router.post('/goodsDetail', (req, res) => {
     })
   })
 })
+
+
+ //   修改商品信息
+ router.put('/goodsDetail/:goods_id', (req, res) => {
+  const goods_id = req.params.goods_id
+  const body = req.body
+  console.log(body,goods_id);
+  const sql = 'update goodsdetail set ? where goods_id = ?'
+  connection.query(sql,[body,goods_id],(err, result) => {
+    if (err) throw console.log('数据获取失败');
+    if (result.affectedRows < 1) return res.send({ err_code: 1, message: '编辑的用户失败' });
+    res.send({
+      err_code: 0,
+      message: '编辑成功'
+    })
+  })
+})
   
   //   获取字段goodsType对的商品名字信息进行搜索
 router.post('/SearchGoodsType',(req,res)=>{
