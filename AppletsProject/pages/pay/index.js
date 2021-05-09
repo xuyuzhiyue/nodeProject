@@ -64,13 +64,14 @@ Page({
           cart = cart.filter(v=>v.checked ===false)
           wx.setStorageSync('cart',cart);
           // console.log(cartTranOder,'cartTranOder');
-
+          let {all} = wx.getStorageSync('address')
           // 增加订单信息到数据库
           cartTranOder.map((item,index) => {
           wx.request({
             url: 'http://127.0.0.1:8800/order',
             method:'POST',
             data:{
+              address:all,
               orderName:item.goods_name,
               orderIden:`${item.orderDate}`,
               orderTime:item.orderDatess,

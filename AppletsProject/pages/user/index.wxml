@@ -45,7 +45,7 @@
             <view class="iconfont icon-fukuantongzhi"></view>
             <view class="order_name">待付款</view>
         </navigator>
-                <navigator>
+        <navigator url="/pages/waitePay/index">
             <view class="iconfont .icon-receipt-address"></view>
             <view class="order_name">待收货</view>
         </navigator>

@@ -1,0 +1,71 @@
+page {
+  margin: 20rpx;
+}
+.order_box {
+  border-bottom: 1rpx solid #ccc;
+}
+.order_box .order_number {
+  margin: 10rpx;
+}
+.order_box .order_top {
+  display: flex;
+  width: 100%;
+}
+.order_box .order_top .order_image {
+  flex: 1;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.order_box .order_top .order_content {
+  flex: 4;
+  padding: 0 10rpx;
+  justify-content: center;
+  align-items: center;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.order_box .order_top .order_price {
+  flex: 1;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 40rpx;
+}
+.order_box .order_top .order_price .price {
+  color: var(--themeColor);
+  font-size: 34rpx;
+}
+.order_box .order_top .order_price .num {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.order_box .order_realdy {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+.order_box .order_realdy .order_date {
+  display: flex;
+  margin-left: 10rpx;
+}
+.order_box .order_realdy .order_pagMessage {
+  display: flex;
+  margin-right: 40rpx;
+  color: var(--themeColor);
+}
+.order_address{
+  margin: 10rpx 10rpx;
+}
+.order_other{
+  display: flex;
+  justify-content: flex-end;
+  margin: 10rpx 10rpx;
+}
+.order_other view{
+  margin-right: 10rpx;
+}

@@ -290,9 +290,10 @@ Page({
       await showToast({title:"请选择商品"})
       return
     }
-
     // 生成订单信息
     const gouwuchecart = wx.getStorageSync('gouwuchecart') || []
+    let {all} = wx.getStorageSync('address')
+    // console.log(wx.getStorageSync('address'),'all');
     const datagouwuche = gouwuchecart.filter(item => item.checked === true || item.checked === 1)
     let orderName = []
     let shopName = []
@@ -307,6 +308,7 @@ Page({
       url: 'http://127.0.0.1:8800/order',
       method:'post',
       data:{
+        address:all,
         name:nickName,
         orderImage:orderImage,
         shopName:shopName.toString(),

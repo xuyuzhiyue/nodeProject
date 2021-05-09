@@ -17,7 +17,8 @@
     "pages/components/Tabs/Tabs",
     "pages/components/UpImg/index",
     "pages/chatToRecord/chatToRecord",
-    "pages/address/index"
+    "pages/address/index",
+    "pages/waitePay/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

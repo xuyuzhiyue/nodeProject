@@ -42,7 +42,7 @@ router.post('/ordercheck',(req,res)=>{
 
   //   获取增加订单信息
  router.post('/order', (req, res) => {
-  //  console.log(req.body,'req');
+   console.log(req.body,'req');
    const body = req.body
   const sql = 'insert into orders set ?'
   connection.query(sql, body, (err, result) => {
@@ -51,6 +51,21 @@ router.post('/ordercheck',(req,res)=>{
     res.send({
       err_code: 0,
       message: '添加成功'
+    })
+  })
+})
+
+// 删除订单信息
+router.put('/order/:id', (req, res) => {
+  const id = req.params.id
+  const body = req.body
+  const sql = 'update orders set ? where id = ?'
+  connection.query(sql, [body,id],(err, result) => {
+    if (err) throw console.log('数据获取失败');
+    if (result.affectedRows < 1) return res.send({ err_code: 1, message: '编辑的用户失败' });
+    res.send({
+      err_code: 0,
+      message: '删除成功'
     })
   })
 })
